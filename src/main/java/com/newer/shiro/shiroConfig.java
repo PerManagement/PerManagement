@@ -49,6 +49,9 @@ public class shiroConfig {
         DefaultShiroFilterChainDefinition definition=new DefaultShiroFilterChainDefinition();
         System.out.println("权限管理");
         definition.addPathDefinition("user/doLogin","anon");
+        definition.addPathDefinition("/task/createTask","authc,roles[task:createTask]");
+        definition.addPathDefinition("/user/login","authc");
+
         List<Resource> allURL = this.service.findAllURL();
         for (Resource resource:allURL){
             if (resource.getResourcecode()==null||resource.getUrl()==null){

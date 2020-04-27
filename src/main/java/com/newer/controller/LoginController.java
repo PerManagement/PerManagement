@@ -10,6 +10,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,6 @@ public class LoginController {
             System.out.println("登录成功！");
         }catch (AuthenticationException e){
             e.printStackTrace();
-
             System.out.println("登录失败！");
             String str=e.toString();
             System.out.println(str.substring(str.lastIndexOf(":")+2));
@@ -46,18 +46,22 @@ public class LoginController {
         return new CommonsResult(200,"登录成功",user1);
     }
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello";
-    }
-    @GetMapping("/hello1")
-    public String hello1(){
-        return "hello1";
+    @GetMapping("a")
+    public CommonsResult a(ModelMap modelMap){
+        return new CommonsResult(301,"未登录",modelMap.getAttribute(Sessions.SESSION_LOGIN_USER));
     }
 
-    @GetMapping("/login")
-    public CommonsResult login(){
+    @GetMapping("login")
+    public CommonsResult login(ModelMap modelMap){
         return new CommonsResult(301,"未登录","login");
+    }
+
+    //退出登录
+    @GetMapping("logout")
+    public CommonsResult logout(HttpSession session){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return new CommonsResult(200,"退出登录","login");
     }
 
 }

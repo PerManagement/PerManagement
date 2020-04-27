@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Data
 public class Resource {
     @Id
-    private Integer id;
+    private Integer resourceid;
     private String name;
     private String resourcecode;
     private String url;

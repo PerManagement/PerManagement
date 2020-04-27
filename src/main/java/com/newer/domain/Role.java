@@ -20,7 +20,7 @@ import java.util.List;
 @Data
 public class Role {
     @Id
-    private Integer id;
+    private Integer roleid;
     private String rolename;
     private String rolecode;
     private String description;

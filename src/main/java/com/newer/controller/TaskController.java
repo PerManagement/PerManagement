@@ -22,6 +22,7 @@ public class TaskController {
     //跳转创建任务界面
     @GetMapping("createTask")
     public CommonsResult goSave(){
+        System.out.println("ok!");
         return new CommonsResult(200,"跳转创建任务界面","createTask");
     }
 

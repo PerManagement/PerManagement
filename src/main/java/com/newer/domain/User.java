@@ -20,7 +20,7 @@ import java.util.List;
 @Data
 public class User{
     @Id
-    private Integer id;
+    private Integer userid;
     private String username;
     private String password;
     private String realname;
