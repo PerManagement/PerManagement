@@ -18,22 +18,15 @@ import java.util.Date;
 @Setter
 public class Task {
     @Id
-    @Column(name="task_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "select seq_t_pro_task_id.nextval from dual")
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "select seq_task_taskid.nextval from dual")
     public Integer taskid;
-    @Column(name="task_name")
     public String taskname;
-    @Column(name="begin_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date begindate;
-    @Column(name="end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date enddate;
     public String status;
-    public Double bonus;
-    @Column(name="user_id")
     public Integer userid;
-    @Column(name="task_desc")
     public String taskdesc;
 
 }
