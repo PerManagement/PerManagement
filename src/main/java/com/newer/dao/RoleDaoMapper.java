@@ -15,9 +15,9 @@ import java.util.List;
  * 2020/3/29 18:41
  */
 public interface RoleDaoMapper extends Mapper<Role> {
-    @Select("select * from t_tree_role where id=#{roleid}")
+    @Select("select * from t_tree_role where roleid=#{roleid}")
     @Results({
-            @Result(column = "id",property = "roleResources",many = @Many(select="com.newer.dao.RoleResourceDaoMapper.findByRoleId",fetchType= FetchType.EAGER))
+            @Result(column = "roleid",property = "roleResources",many = @Many(select="com.newer.dao.RoleResourceDaoMapper.findByRoleId",fetchType= FetchType.EAGER))
     })
     public List<Role> findByKey(Integer roleid);
 }

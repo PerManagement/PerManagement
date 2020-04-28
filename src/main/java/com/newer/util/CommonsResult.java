@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class CommonsResult<T> {
     private Integer code;//状态码 404 500 200
     private String message;//描述信息 登录成功
-    private T       data;//
+    private T       data;//返回具体数据，如登录成功后的用户信息
 
     public CommonsResult(Integer code,String message){
           this(code,message,null);

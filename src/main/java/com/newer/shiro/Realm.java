@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class Realm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
-    ModelMap modelMap=new ModelMap();
 
     @SneakyThrows
     @Override
@@ -58,6 +57,7 @@ public class Realm extends AuthorizingRealm {
         User user = this.userService.login(userName);
         if (user == null) {
             //4.若用户不存在则可以抛出UnknownAccountException异常
+            //dasfasgasasffasasd ：用户不存在..
             throw new UnknownAccountException("用户不存在..");
         }
         if (user.getLocked()!=0){

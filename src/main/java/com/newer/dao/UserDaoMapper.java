@@ -15,7 +15,7 @@ import tk.mybatis.mapper.common.Mapper;
 public interface UserDaoMapper extends Mapper<User> {
     @Select("select * from t_tree_user where username=#{username}")
     @Results(
-            @Result(column = "id",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
+            @Result(column = "userid",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
     )
     public User login(String username);
 }
