@@ -12,6 +12,6 @@ public interface AttendanceService extends Mapper <Attendance> {
     public boolean sava(Attendance attendance);
     public boolean delete(Integer id);
     public boolean update(Attendance attendance);
-    public PageInfo<Attendance> findAttendance(Integer page, Integer pageSize);
+
     public Attendance findAttendancebyid(Integer id);
 }
