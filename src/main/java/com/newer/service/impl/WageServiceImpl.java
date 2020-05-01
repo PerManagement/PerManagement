@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Service
 public class WageServiceImpl implements WageService {
+    @Autowired
     public WageMapper wageMapper;
     @Override
     public int update(Wage wage) {
@@ -33,23 +34,17 @@ public class WageServiceImpl implements WageService {
 
     @Override
     public PageInfo<Wage> pageInfo(WagePageDto page) {
-//        PageHelper.startPage(dto.getPage(),dto.getPageSize());
-//        //Example example=new Example(Wage.class);
-//        //Example.Criteria criteria=example.createCriteria();
-//        List list=this.wageMapper.selectAll();
-//        PageInfo pageInfo=new PageInfo<Wage>(list);
-//        return pageInfo;
-
+        System.out.println(page.getPage()+","+page.getPageSize());
         PageHelper.startPage(page.getPage(),page.getPageSize());
-        Example example = new Example(Wage.class);
-        Criteria criteria = example.createCriteria();
-        if (page.getBeginDate() != null && !"".equals(page.getBeginDate())) {
-            criteria.andLike("birthday1", "%" + page.getBeginDate() + "%");
-        }
-        if (page.getEndDate() != null && !"".equals(page.getEndDate())) {
-            criteria.andLike("birthday2", "%" + page.getEndDate() + "%");
-        }
-        List list=this.wageMapper.selectByExample(example);
+//        Example example = new Example(Wage.class);
+//        Criteria criteria = example.createCriteria();
+//        if (page.getBeginDate() != null && !"".equals(page.getBeginDate())) {
+//            criteria.andLike("birthday1", "%" + page.getBeginDate() + "%");
+//        }
+//        if (page.getEndDate() != null && !"".equals(page.getEndDate())) {
+//            criteria.andLike("birthday2", "%" + page.getEndDate() + "%");
+//        }
+        List list=this.wageMapper.pageInfo();
         PageInfo pageInfo=new PageInfo<Wage>(list);
         return pageInfo;
 

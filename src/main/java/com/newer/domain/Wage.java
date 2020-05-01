@@ -9,14 +9,16 @@ import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Table(name="t_wage")
 public class Wage {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY,generator="select seq_wage.nextval from dual")
     private Integer wageid;
     private Integer userid;
-    private Integer deptid ;
+    private Integer deptid;
+    private Integer welfareid;
     private BigDecimal netpay;
     private BigDecimal overtimepay;
     private BigDecimal taxes;
@@ -28,4 +30,7 @@ public class Wage {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date wagedate;
     private Integer issuer;
+    private User user;
+    private Welfare welfare;
+
 }

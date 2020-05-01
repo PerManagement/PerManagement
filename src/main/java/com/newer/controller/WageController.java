@@ -40,10 +40,14 @@ public class WageController {
 
     //查询记录
     @GetMapping("pageInfo")
-    public CommonsResult pageInfo(WagePageDto dto){
-        PageInfo pageInfo=this.wageServiceImpl.pageInfo(dto);
+    public CommonsResult pageInfo(Integer page,Integer pageSize){
+        System.out.println(page+","+pageSize);
+        WagePageDto pageDto=new WagePageDto();
+        pageDto.setPage(page);
+        pageDto.setPageSize(pageSize);
+        PageInfo pageInfo=this.wageServiceImpl.pageInfo(pageDto);
         if(pageInfo!=null){
-            return new CommonsResult(200,"查询成功",dto);
+            return new CommonsResult(200,"查询成功",pageInfo);
         }
         return new CommonsResult(200,"查询失败",null);
     }
