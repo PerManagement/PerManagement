@@ -10,8 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -19,8 +18,9 @@ import org.springframework.format.annotation.DateTimeFormat;
  * 作者：谢海鸿
  * 时间：2020-04-28 21:25
  */
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Table(name="t_pro_plan")
 public class Plan {
 	@Id

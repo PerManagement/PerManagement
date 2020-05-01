@@ -1,7 +1,12 @@
 package com.newer.dao;
 
 import com.newer.domain.Plan;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.SelectProvider;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 /**
  * 功能描述：任务管理模块Dao层
