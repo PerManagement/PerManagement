@@ -1,38 +1,37 @@
 package com.newer.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.newer.dao.AfficheMapper;
 import com.newer.domain.Affiche;
+import com.newer.dto.AfficheDto;
+import com.newer.service.AfficheService;
 import com.newer.util.CommonsResult;
 import com.newer.util.Sessions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import tk.mybatis.mapper.entity.Example;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+/**
+ * 公告模块控制层
+ * 2020-05-02
+ * 陈良吉
+ */
 @RestController
 @SessionAttributes(Sessions.SESSION_LOGIN_USER)
 @RequestMapping("affiche")
 public class AfficheController {
 
-    @Autowired
-    private AfficheMapper afficheMapper;
+    private AfficheService afficheService;
 
     @GetMapping("findAffichens")
-    public CommonsResult findAffichens(Integer userid){
-
-        Example example=new Example(Affiche.class);
-        Example.Criteria criteria=example.createCriteria();
-        criteria.andEqualTo("userid",userid);
-
-        List list=this.afficheMapper.selectByExample(example);
-        return new CommonsResult(200, "跳转到查看公告页面",list);
+    public CommonsResult findAffichens(AfficheDto afficheDto) {
+        PageInfo<Affiche> pageInfo=this.afficheService.findAffiches(afficheDto);
+        return new CommonsResult(200, "公告列表", pageInfo);
     }
 
+    @GetMapping("saveAffiche")
+    public CommonsResult saveAffiche(@RequestBody Affiche affiche) {
+        if (this.afficheService.saveAffiche(affiche))
+            return new CommonsResult(200, "公告发布成功", affiche);
+        return new CommonsResult(500, "公告发布失败", null);
+    }
 
 
 }
