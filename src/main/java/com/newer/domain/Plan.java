@@ -30,18 +30,25 @@ public class Plan {
 	private String planname;
 	private String state;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date begindate;
+	private Date begintime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date enddate;
+	private Date endtime;
 	private String info;
 	private String plandesc;
 	private Task task;
 
+	public String getBegintimeString(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if(this.begintime!=null){
+			return sdf.format(this.begintime);
+		}
+		return null;
+	}
 	 
 	 public String getEnddateString(){
-		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		 if(this.enddate!=null){
-			 return sdf.format(this.enddate);
+		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 if(this.endtime!=null){
+			 return sdf.format(this.endtime);
 		 }
 		 return null;
 	 }
