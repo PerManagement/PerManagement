@@ -6,11 +6,13 @@ import com.newer.dao.WageMapper;
 import com.newer.domain.Wage;
 import com.newer.dto.WagePageDto;
 import com.newer.service.WageService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,18 +35,11 @@ public class WageServiceImpl implements WageService {
 
 
     @Override
-    public PageInfo<Wage> pageInfo(WagePageDto page) {
-        System.out.println(page.getPage()+","+page.getPageSize());
-        PageHelper.startPage(page.getPage(),page.getPageSize());
-//        Example example = new Example(Wage.class);
-//        Criteria criteria = example.createCriteria();
-//        if (page.getBeginDate() != null && !"".equals(page.getBeginDate())) {
-//            criteria.andLike("birthday1", "%" + page.getBeginDate() + "%");
-//        }
-//        if (page.getEndDate() != null && !"".equals(page.getEndDate())) {
-//            criteria.andLike("birthday2", "%" + page.getEndDate() + "%");
-//        }
-        List list=this.wageMapper.pageInfo();
+    public PageInfo<Wage> pageInfo(WagePageDto wageDto) {
+        System.out.println(wageDto.getPage()+","+wageDto.getPageSize());
+        System.out.println(wageDto.getBeginDate()+","+wageDto.getEndDate());
+        PageHelper.startPage(wageDto.getPage(),wageDto.getPageSize());
+        List list=this.wageMapper.pageInfoByDate(wageDto);
         PageInfo pageInfo=new PageInfo<Wage>(list);
         return pageInfo;
 

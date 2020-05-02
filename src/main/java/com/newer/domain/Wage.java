@@ -28,7 +28,7 @@ public class Wage {
     private BigDecimal leave;
     private String wagestate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date wagedate;
+    private String wagedate;
     private Integer issuer;
     private User user;
     private Welfare welfare;

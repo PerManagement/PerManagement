@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 /**
  * 功能描述：薪资管理模块控制层
  * 作者：龙珊
@@ -40,8 +42,9 @@ public class WageController {
 
     //查询记录
     @GetMapping("pageInfo")
-    public CommonsResult pageInfo(Integer page,Integer pageSize){
+    public CommonsResult pageInfo(Integer page, Integer pageSize, String beginDate,String endDate){
         System.out.println(page+","+pageSize);
+        System.out.println(beginDate+","+endDate);
         WagePageDto pageDto=new WagePageDto();
         pageDto.setPage(page);
         pageDto.setPageSize(pageSize);
