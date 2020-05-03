@@ -12,6 +12,7 @@ import com.newer.dto.PageDto;
  */
 public interface PlanService {
 
+    public boolean update(Plan plan);
     public PageInfo<Plan> findPlan(PageDto dto);
 
 }

@@ -1,6 +1,8 @@
 package com.newer.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.newer.domain.Task;
+import com.newer.dto.PageDto;
 import com.newer.service.TaskService;
 import com.newer.util.CommonsResult;
 import com.newer.util.Sessions;
@@ -28,11 +30,30 @@ public class TaskController {
 
     //创建任务
     @GetMapping("save")
-    public CommonsResult doSave(@RequestBody Task task){
+    public CommonsResult save(@RequestBody Task task){
         boolean tag=this.taskService.save(task);
         if (tag){
             return new CommonsResult(200,"创建任务成功",task);
         }
         return new CommonsResult(200,"创建任务失败",null);
     }
+
+    //任务查询 2020-05-02 17:40
+    @GetMapping("findTask")
+    public CommonsResult findTask(PageDto dto){
+        PageInfo pageInfo=this.taskService.findTask(dto);
+        return new CommonsResult(200,"任务分页",pageInfo);
+    }
+
+    //修改任务 2020-05-02 23:11
+    @GetMapping("update")
+    public CommonsResult update(@RequestBody Task task){
+        boolean tag=this.taskService.update(task);
+        if (tag){
+            return new CommonsResult(200,"修改任务成功",task);
+        }
+        return new CommonsResult(200,"修改任务失败",null);
+    }
+
+
 }

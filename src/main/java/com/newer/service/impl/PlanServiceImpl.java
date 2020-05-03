@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.dao.PlanMapper;
 import com.newer.domain.Plan;
+import com.newer.domain.Task;
 import com.newer.dto.PageDto;
 import com.newer.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ import java.util.List;
 public class PlanServiceImpl implements PlanService {
     @Autowired
     private PlanMapper planMapper;
+
+    @Override
+    public boolean update(Plan plan) {
+        return this.planMapper.updateByPrimaryKeySelective(plan)>0?true:false;
+    }
 
     @Override
     public PageInfo<Plan> findPlan(PageDto dto) {

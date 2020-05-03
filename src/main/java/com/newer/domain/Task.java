@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -27,6 +28,24 @@ public class Task {
     public Date enddate;
     public String status;
     public Integer userid;
+    public Integer sharer;
     public String taskdesc;
+    public User user;
+
+    public String getBegindateString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(this.begindate!=null){
+            return sdf.format(this.begindate);
+        }
+        return null;
+    }
+
+    public String getEnddateString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(this.enddate!=null){
+            return sdf.format(this.enddate);
+        }
+        return null;
+    }
 
 }
