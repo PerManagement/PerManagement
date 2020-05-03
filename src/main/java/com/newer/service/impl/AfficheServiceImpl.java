@@ -8,7 +8,6 @@ import com.newer.dto.AfficheDto;
 import com.newer.service.AfficheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -28,11 +27,7 @@ public class AfficheServiceImpl implements AfficheService {
 
         PageHelper.startPage(afficheDto.getPage(), afficheDto.getPageSize());
 
-        Example example = new Example(Affiche.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userid", afficheDto.getUserid());
-
-        List list = this.afficheMapper.selectByExample(example);
+        List list = this.afficheMapper.findAffiches(afficheDto.getUserid());
         PageInfo<Affiche> pageInfo = new PageInfo<Affiche>(list);
         return pageInfo;
     }

@@ -18,4 +18,11 @@ public interface UserDaoMapper extends Mapper<User> {
             @Result(column = "id",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
     )
     public User login(String username);
+
+
+    @Select("select * from t_tree_user where userid=#{userid}")
+    @Results(
+            @Result(column = "id",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
+    )
+    public User findUserById(Integer userid);
 }

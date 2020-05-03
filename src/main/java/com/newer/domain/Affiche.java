@@ -20,12 +20,13 @@ public class Affiche {
     @Column(name = "affiche_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_affiche_affche_id.nextval from dual")
     public Integer afficheid;
-    @Column(name = "user_id")
     public Integer userid;
     public String title;
     @Column(name = "affiche_content")
     public String affichecontent;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date releasetime;
+
+    public User user;
 
 }
