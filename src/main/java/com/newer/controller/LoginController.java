@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @SessionAttributes(Sessions.SESSION_LOGIN_USER)
-@RequestMapping("user")
+@RequestMapping("login")
 public class LoginController {
     @Autowired
     private UserService userService;
@@ -43,12 +43,14 @@ public class LoginController {
         }
         User user1=(User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         modelMap.put(Sessions.SESSION_LOGIN_USER,user1);
+        System.out.println("存储之前:"+user1);
         return new CommonsResult(200,"登录成功",user1);
     }
 
     @GetMapping("/hello")
-    public String hello(){
-        return "hello";
+    public User hello(ModelMap modelMap){
+        System.out.println((User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER));
+        return (User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
     }
     @GetMapping("/hello1")
     public String hello1(){

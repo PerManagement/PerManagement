@@ -13,10 +13,11 @@ import java.util.Date;
  * 作者：谢海鸿
  * 时间：2020-04-07 21:00
  */
+
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Table(name ="t_pro_task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = " select seq_task_taskid.nextval from dual ")

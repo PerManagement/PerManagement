@@ -22,7 +22,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return
      */
     @Override
-    public List<Resource> findAllURL() {
+    public List<Resource> findAll() {
         return  this.daoMapper.selectAll();
     }
 }
