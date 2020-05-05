@@ -17,15 +17,15 @@ import java.util.List;
  */
 
 public interface WageMapper extends Mapper<Wage> {
-    @Select("select a.*,d.id,d.username," +
+    @Select("select a.*,d.username," +
             "b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc," +
             "b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance," +
             "b.employmentinjuryinsurance,b.reservedfunds " +
             "from t_wage a,welfare b,t_tree_user d where a.welfareid=b.welfareid " +
-            "and d.id=a.userid and issuestate='未发放'")
+            "and d.userid=a.userid and issuestate='未发放'")
     @Results(id="wageMap",value={
             @Result(column = "wageid",property = "wageid"),
-            @Result(column = "userid",property = "user.id"),
+            @Result(column = "userid",property = "user.userid"),
             @Result(column = "username",property = "user.username"),
             @Result(column = "welfareid",property = "welfare.welfareid"),
             @Result(column = "subsidy",property = "welfare.subsidy"),
@@ -41,15 +41,15 @@ public interface WageMapper extends Mapper<Wage> {
     List<Wage> pageInfo();
 
 
-    @Select("select a.*,d.id,d.username," +
+    @Select("select a.*,d.username," +
             "b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc," +
             "b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance," +
             "b.employmentinjuryinsurance,b.reservedfunds " +
             "from t_wage a,welfare b,t_tree_user d where a.welfareid=b.welfareid " +
-            "and d.id=a.userid and wageState='未审核'")
+            "and d.userid=a.userid and wageState='未审核'")
     @Results(id="wageMap2",value={
             @Result(column = "wageid",property = "wageid"),
-            @Result(column = "userid",property = "user.id"),
+            @Result(column = "userid",property = "user.userid"),
             @Result(column = "username",property = "user.username"),
             @Result(column = "welfareid",property = "welfare.welfareid"),
             @Result(column = "subsidy",property = "welfare.subsidy"),
@@ -64,15 +64,15 @@ public interface WageMapper extends Mapper<Wage> {
     })
     List<Wage> pageInfo2();
 
-    @Select("select a.*,d.id,d.username," +
+    @Select("select a.*,d.username," +
             "b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc," +
             "b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance," +
             "b.employmentinjuryinsurance,b.reservedfunds " +
             "from t_wage a,welfare b,t_tree_user d where a.welfareid=b.welfareid " +
-            "and d.id=a.userid and d.id=#{userId}")
+            "and d.id=a.userid and d.userid=#{userId}")
     @Results(id="wageMap3",value={
             @Result(column = "wageid",property = "wageid"),
-            @Result(column = "userid",property = "user.id"),
+            @Result(column = "userid",property = "user.userid"),
             @Result(column = "username",property = "user.username"),
             @Result(column = "welfareid",property = "welfare.welfareid"),
             @Result(column = "subsidy",property = "welfare.subsidy"),
@@ -90,7 +90,7 @@ public interface WageMapper extends Mapper<Wage> {
     @Results(
             {
             //@Result(column = "wageid",property = "wageid"),
-            @Result(column = "userid",property = "user.id"),
+            @Result(column = "userid",property = "user.userid"),
             @Result(column = "username",property = "user.username"),
             @Result(column = "welfareid",property = "welfare.welfareid"),
             @Result(column = "subsidy",property = "welfare.subsidy"),

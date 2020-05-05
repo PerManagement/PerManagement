@@ -9,10 +9,10 @@ public class WageProvide {
     public String findByDate(final @Param("wageDto") WagePageDto wageDto){
         return new SQL(){
             {
-                SELECT(" a.*,d.id,d.username,b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds ");
+                SELECT(" a.*,d.username,b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds ");
                 FROM(" t_wage a,welfare b,t_tree_user d ");
                 WHERE(" a.welfareid=b.welfareid ");
-                WHERE(" d.id=a.userid ");
+                WHERE(" d.userid=a.userid ");
                 WHERE(" issuestate='已发放' ");
                 if(wageDto!=null){
                     if(wageDto.getBeginDate()!=null && !wageDto.getBeginDate().equals("")){
