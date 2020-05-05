@@ -25,24 +25,79 @@ public class WageServiceImpl implements WageService {
     @Autowired
     public WageMapper wageMapper;
     @Override
-    public int update(Wage wage) {
-        int a=this.wageMapper.updateByPrimaryKey(wage);
+    public int updateWage(Integer userId,Integer wageId) {
+        System.out.println(userId+","+wageId);
+        Wage wage = new Wage();
+        wage.setIssuer(userId);
+        wage.setIssuestate("已发放");
+        System.out.println(wage);
+        Example example=new Example(wage.getClass());
+        Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("wageid",wageId);
+        int a=this.wageMapper.updateByExampleSelective(wage,example);
         if(a>0){
             return a;
         }
         return 0;
     }
 
+    @Override
+    public int updateState(Integer wageId) {
+        int a=this.wageMapper.updateState(wageId);
+        if(a>0){
+            return a;
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateState2(Integer wageId) {
+        int a=this.wageMapper.updateState2(wageId);
+        if(a>0){
+            return a;
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateState3(Integer wageId) {
+        int a=this.wageMapper.updateState3(wageId);
+        if(a>0){
+            return a;
+        }
+        return 0;
+    }
 
     @Override
     public PageInfo<Wage> pageInfo(WagePageDto wageDto) {
-        System.out.println(wageDto.getPage()+","+wageDto.getPageSize());
-        System.out.println(wageDto.getBeginDate()+","+wageDto.getEndDate());
+        PageHelper.startPage(wageDto.getPage(),wageDto.getPageSize());
+        List list=this.wageMapper.pageInfo();
+        PageInfo pageInfo=new PageInfo<Wage>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Wage> pageInfo2(WagePageDto wageDto) {
+        PageHelper.startPage(wageDto.getPage(),wageDto.getPageSize());
+        List list=this.wageMapper.pageInfo2();
+        PageInfo pageInfo=new PageInfo<Wage>(list);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Wage> pageInfoByDate(WagePageDto wageDto) {
         PageHelper.startPage(wageDto.getPage(),wageDto.getPageSize());
         List list=this.wageMapper.pageInfoByDate(wageDto);
         PageInfo pageInfo=new PageInfo<Wage>(list);
         return pageInfo;
+    }
 
+    @Override
+    public PageInfo<Wage> findByUserId(WagePageDto wageDto) {
+        PageHelper.startPage(wageDto.getPage(),wageDto.getPageSize());
+        List list=this.wageMapper.findByUserId(wageDto);
+        PageInfo pageInfo=new PageInfo<Wage>(list);
+        return pageInfo;
     }
 
     @Override

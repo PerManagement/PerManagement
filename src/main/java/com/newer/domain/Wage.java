@@ -6,11 +6,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @Table(name="t_wage")
 public class Wage {
     @Id
@@ -27,6 +27,7 @@ public class Wage {
     private BigDecimal lateandearly;
     private BigDecimal leave;
     private String wagestate;
+    private String issuestate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String wagedate;
     private Integer issuer;
