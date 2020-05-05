@@ -32,7 +32,7 @@ public class PlanServiceImpl implements PlanService {
     public PageInfo<Plan> findPlan(PageDto dto) {
 
         PageHelper.startPage(dto.getPage(), dto.getPageSize());
-        List list=this.planMapper.selectAll();
+        List list=this.planMapper.findPlan();
         PageInfo<Plan> pageInfo=new PageInfo<Plan>(list);
         return pageInfo;
     }

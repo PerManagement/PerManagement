@@ -35,7 +35,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public PageInfo<Task> findTask(PageDto dto) {
         PageHelper.startPage(dto.getPage(), dto.getPageSize());
-        List<Task> list=this.taskMapper.selectAll();
+        List<Task> list=this.taskMapper.findTask();
         PageInfo<Task> pageInfo=new PageInfo<Task>(list);
         return pageInfo;
     }
