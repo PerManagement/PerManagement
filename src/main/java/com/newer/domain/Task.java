@@ -19,7 +19,7 @@ import java.util.Date;
 @Table(name ="t_pro_task")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "select seq_task_taskid.nextval from dual")
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = " select seq_task_taskid.nextval from dual ")
     public Integer taskid;
     public String taskname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

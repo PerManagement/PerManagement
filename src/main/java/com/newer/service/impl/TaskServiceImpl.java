@@ -23,6 +23,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public boolean save(Task task) {
+        task.setStatus("未实施");
         return this.taskMapper.insertSelective(task)>0?true:false;
     }
 
