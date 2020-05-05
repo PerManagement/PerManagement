@@ -1,5 +1,12 @@
 package com.newer.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class PageDto {
     private Integer page=1;
     private Integer pageSize=3;
