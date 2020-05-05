@@ -49,7 +49,7 @@ public class shiroConfig {
         DefaultShiroFilterChainDefinition definition=new DefaultShiroFilterChainDefinition();
         System.out.println("权限管理");
         definition.addPathDefinition("user/doLogin","anon");
-        List<Resource> allURL = this.service.findAllURL();
+        List<Resource> allURL = this.service.findAll();
         for (Resource resource:allURL){
             if (resource.getResourcecode()==null||resource.getUrl()==null){
                 continue;

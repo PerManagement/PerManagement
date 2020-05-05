@@ -1,8 +1,7 @@
 package com.newer.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,8 +13,9 @@ import java.util.Date;
  * 时间：2020-04-07 21:00
  */
 @Table(name ="t_pro_task")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Task {
     @Id
     @Column(name="task_id")

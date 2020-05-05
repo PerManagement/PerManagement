@@ -9,5 +9,5 @@ import java.util.List;
  * 2020/4/4 13:59
  */
 public interface ResourceService {
-    public List<Resource> findAllURL();
+    public List<Resource> findAll();
 }
