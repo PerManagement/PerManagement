@@ -13,6 +13,7 @@ public class WageProvide {
                 FROM(" t_wage a,welfare b,t_tree_user d ");
                 WHERE(" a.welfareid=b.welfareid ");
                 WHERE(" d.id=a.userid ");
+                WHERE(" issuestate='已发放' ");
                 if(wageDto!=null){
                     if(wageDto.getBeginDate()!=null && !wageDto.getBeginDate().equals("")){
                         wageDto.setBeginDate(wageDto.getBeginDate());

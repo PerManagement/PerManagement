@@ -15,7 +15,13 @@ import java.util.Date;
 public interface WageService {
     public int save(Wage wage);
     public PageInfo<Wage> pageInfo(WagePageDto page);
-    public int update(Wage wage);
+    public PageInfo<Wage> pageInfo2(WagePageDto page);
+    public PageInfo<Wage> pageInfoByDate(WagePageDto page);
+    public PageInfo<Wage> findByUserId(WagePageDto page);
+    public int updateWage(Integer userId,Integer wageId);
+    public int updateState(Integer wageId);
+    public int updateState2(Integer wageId);
+    public int updateState3(Integer wageId);
 
 
 }

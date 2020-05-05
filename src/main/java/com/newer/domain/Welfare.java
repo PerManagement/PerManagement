@@ -18,7 +18,7 @@ public class Welfare {
     private Integer welfareid;
     private BigDecimal subsidy;
     private BigDecimal carallwance;
-    private BigDecimal housingSubsidy;
+    private BigDecimal housingsubsidy;
     private BigDecimal medicallnsuranc;
     private BigDecimal endowmentinsurance;
     private BigDecimal unemploymentinsurance;
