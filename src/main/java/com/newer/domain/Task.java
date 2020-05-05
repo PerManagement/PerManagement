@@ -15,9 +15,11 @@ import java.util.Date;
  */
 
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name ="t_pro_task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = " select seq_task_taskid.nextval from dual ")
