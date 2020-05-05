@@ -7,10 +7,12 @@ import com.newer.dto.AfficheDto;
 import com.newer.service.AfficheService;
 import com.newer.util.CommonsResult;
 import com.newer.util.Sessions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * 公告模块控制层
@@ -22,19 +24,29 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("affiche")
 public class AfficheController {
 
+    @Autowired
     private AfficheService afficheService;
 
-    @GetMapping("findAffichens")
-    public CommonsResult findAffichens(AfficheDto afficheDto, ModelMap modelMap) {
-        User user=(User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
-        afficheDto.setUserid(user.getId());
+    @GetMapping("hello")
+    public String hello(){
+        return "hello";
+    }
 
+    @GetMapping("findAffiches")
+    public CommonsResult findAffichens(Integer page,Integer pageSize,Integer userid, ModelMap modelMap) {
+        AfficheDto afficheDto=new AfficheDto();
+        afficheDto.setUserid(userid);
+        afficheDto.setPage(page);
+        afficheDto.setPageSize(pageSize);
+        System.out.println(afficheDto.getUserid());
         PageInfo<Affiche> pageInfo=this.afficheService.findAffiches(afficheDto);
         return new CommonsResult(200, "公告列表", pageInfo);
     }
 
-    @GetMapping("saveAffiche")
+    @PostMapping("saveAffiche")
     public CommonsResult saveAffiche(@RequestBody Affiche affiche) {
+//        System.out.println("affiche="+affiche);
+        affiche.setReleasetime(new Date());
         if (this.afficheService.saveAffiche(affiche))
             return new CommonsResult(200, "公告发布成功", affiche);
         return new CommonsResult(500, "公告发布失败", null);

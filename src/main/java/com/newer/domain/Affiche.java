@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -24,9 +25,14 @@ public class Affiche {
     public String title;
     @Column(name = "affiche_content")
     public String affichecontent;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date releasetime;
-
     public User user;
+
+    public String getReleasetimeString(){
+        if (this.releasetime != null)
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.releasetime);
+        return null;
+    }
 
 }

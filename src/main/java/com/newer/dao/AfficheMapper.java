@@ -7,12 +7,15 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.persistence.Column;
 import java.util.List;
 
 public interface AfficheMapper extends Mapper<Affiche> {
-    @Results(id = "AfficheMap", value = {
-            @Result(column = "userid", property = "user.id", one = @One(select = "com.newer.dao.UserDaoMapper.findUserById"))
-    })
-    @Select("select * from t_affiche where userid=#{userid}")
+
+    @Results({
+            @Result(column = "userid",property = "userid"),
+        @Result(column = "username",property = "user.username")
+            })
+    @Select("select a.*,b.username from t_affiche a,t_tree_user b where a.userid=b.userid and b.userid=#{userid}")
     public List<Affiche> findAffiches(Integer userid);
 }
