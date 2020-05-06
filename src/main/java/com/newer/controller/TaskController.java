@@ -39,6 +39,8 @@ public class TaskController {
     @GetMapping("findExecutor")
     public CommonsResult findExecutor(ModelMap modelMap){
         User attribute = (User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
+        System.out.println(attribute);
+        System.out.println(attribute.getUserid());
         List<User> list=this.userService.findExecutor(attribute.getUserid());
         return new CommonsResult(200,"查询直系下属",list);
     }
