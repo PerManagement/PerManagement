@@ -18,7 +18,7 @@ public class PageDto {
     private Integer pageSize=4;
 
     public Integer getPage() {
-        if(page<1) page=1;
+        if(page<1) this.page=1;
         return page;
     }
 }

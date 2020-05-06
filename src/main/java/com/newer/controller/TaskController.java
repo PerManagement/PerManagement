@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.newer.domain.Task;
 import com.newer.domain.User;
 import com.newer.dto.PageDto;
+import com.newer.dto.TaskDto;
 import com.newer.service.TaskService;
 import com.newer.service.UserService;
 import com.newer.util.CommonsResult;
@@ -55,8 +56,13 @@ public class TaskController {
 
     //任务查询 2020-05-02 17:40
     @GetMapping("findTask")
-    public CommonsResult findTask(PageDto dto){
-        PageInfo pageInfo=this.taskService.findTask(dto);
+    public CommonsResult findTask(Integer page, Integer pageSize, String begindate,String enddate){
+                TaskDto taskDto=new TaskDto();
+                taskDto.setPage(page);
+                taskDto.setPageSize(pageSize);
+                taskDto.setBegindate(begindate);
+                taskDto.setEnddate(enddate);
+               PageInfo pageInfo=this.taskService.findTask(taskDto);
         return new CommonsResult(200,"任务分页",pageInfo);
     }
 

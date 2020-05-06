@@ -5,7 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.newer.dao.TaskMapper;
 import com.newer.domain.Task;
 import com.newer.dto.PageDto;
+import com.newer.dto.TaskDto;
 import com.newer.service.TaskService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +35,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public PageInfo<Task> findTask(PageDto dto) {
-        PageHelper.startPage(dto.getPage(), dto.getPageSize());
-        List<Task> list=this.taskMapper.findTask();
+    public PageInfo<Task> findTask(@Param("taskDto")TaskDto taskDto) {
+        System.out.println("server:"+taskDto);
+        PageHelper.startPage(taskDto.getPage(), taskDto.getPageSize());
+        List<Task> list=this.taskMapper.findTask(taskDto);
         PageInfo<Task> pageInfo=new PageInfo<Task>(list);
         return pageInfo;
     }

@@ -1,9 +1,8 @@
 package com.newer.dao;
 
 import com.newer.domain.Task;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import com.newer.dto.TaskDto;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -21,6 +20,7 @@ public interface TaskMapper extends Mapper<Task> {
             @Result(column = "realname",property = "user.realname"),
             @Result(column = "upno",property = "user.upno"),
     })
-    @Select("select a.*,b.username,b.realname,b.upno from t_pro_task a,t_tree_user b where a.userid=b.userid")
-    List<Task> findTask();
+//    @Select("select a.*,b.username,b.realname,b.upno from t_pro_task a,t_tree_user b where a.userid=b.userid")
+    @SelectProvider(method = "findTask",type = TaskProvider.class )
+    List<Task> findTask(@Param("taskDto")TaskDto taskDto);
 }
