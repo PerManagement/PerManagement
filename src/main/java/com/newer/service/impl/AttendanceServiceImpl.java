@@ -8,7 +8,6 @@ import com.newer.domain.Attendance;
 import com.newer.dto.PageDto;
 import com.newer.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public int sava(Attendance attendance) {
-        int a=this.attendancemapper.insert(attendance);
+        int a=this.attendancemapper.insertSelective(attendance);
         if(a>0){
             return a;
         }
@@ -56,7 +55,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         System.out.println(dto.getPage() + "," + dto.getPageSize());
         PageHelper.startPage(dto.getPage(), dto.getPageSize());
         List list = this.attendancemapper.findAll();
-        PageInfo pageInfo = new PageInfo<Attendance>(list);
+        PageInfo pageInfo = new PageInfo<>(list);
         return pageInfo;
 
     }

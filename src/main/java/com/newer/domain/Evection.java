@@ -19,11 +19,11 @@ public class Evection {
     public Integer  evectionid;
     public Integer userid;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Data evectiondate;
+    private String evectiondate;
     private String evectionaddress;
     private String evectionreason ;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Data stoPevection;
+    private String stoPevection;
     private String evectionstate  ;
     public Integer  approver;
     private String  remark ;

@@ -16,9 +16,9 @@ public class Leave {
     private Integer userid;
     private String leavereason;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data leavetime;
+    private String leavetime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data stopleave;
+    private String stopleave;
     private String context;
     private  String approval;
     private  String leavestate;
@@ -29,4 +29,5 @@ public class Leave {
     private  String finall;
     private Integer approver;
     private  String  remark;
+    private User user;
 }

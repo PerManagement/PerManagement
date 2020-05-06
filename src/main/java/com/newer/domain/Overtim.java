@@ -11,17 +11,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Overtim {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID .nextval from dual")
-    private Integer overtimID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID.nextval from dual")
+    private Integer overtimid;
     private Integer userid;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data overtimedate;
+    private String overtimedate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data  stoPovertime;
+    private String  stopovertime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data  overtimedated;
+    private String  overtimedated;
     private  String overtimstate;
-    private  String overtimReason ;
+    private  String overtimreason ;
     private Integer  approver;
     private String remark;
 }

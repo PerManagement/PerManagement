@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface AttendanceDaoMapper extends Mapper <Attendance> {
 
-    @Select("select a.*,d.username,b.deptname from t_attendance a,t_department b,t_tree_user d where a.deptid=b.deptid and d.deptid=a.userid")
+    @Select("select a.*,d.username,b.deptname from t_attendance a,t_department b,t_tree_user d where a.deptid=b.deptid and d.userid=a.userid")
     @Results(id="AttendanceMap",value={
             @Result(column = "attendanceid",property = "attendanceid"),
             @Result(column = "userid",property = "userid"),
