@@ -69,7 +69,7 @@ public interface WageMapper extends Mapper<Wage> {
             "b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance," +
             "b.employmentinjuryinsurance,b.reservedfunds " +
             "from t_wage a,welfare b,t_tree_user d where a.welfareid=b.welfareid " +
-            "and d.id=a.userid and d.userid=#{userId}")
+            "and d.userid=a.userid and d.userid=#{userId}")
     @Results(id="wageMap3",value={
             @Result(column = "wageid",property = "wageid"),
             @Result(column = "userid",property = "user.userid"),
