@@ -16,6 +16,7 @@ import java.util.List;
 public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private ResourceDaoMapper daoMapper;
+
     /**
      * 返回所有URL
      * @return

@@ -6,8 +6,6 @@ import com.newer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * Create by 何辉
  * 2020/3/28 21:15
@@ -24,11 +22,5 @@ public class UserServiceImpl implements UserService {
         }else{
             return null;
         }
-    }
-
-    //谢海鸿  05-04 15:05 查询相关主管的下属
-    @Override
-    public List<User> findExecutor(Integer id) {
-        return this.dao.findExecutor(id);
     }
 }
