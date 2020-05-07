@@ -139,7 +139,14 @@ public class ExcelController {
         InputStream is = new ByteArrayInputStream(content);
 
         // 设置response参数，可以打开下载页面
+
+
         response.reset();
+
+//        response.addHeader("Access-Control-Allow-Origin", "*");
+//        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         response.setHeader("Content-Disposition",
                 "attachment;filename=" + new String((fileName + ".xls").getBytes(), "iso-8859-1"));
