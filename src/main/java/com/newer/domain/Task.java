@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,28 +13,42 @@ import java.util.Date;
  * 作者：谢海鸿
  * 时间：2020-04-07 21:00
  */
-@Table(name ="t_pro_task")
+
+
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name ="t_pro_task")
 public class Task {
     @Id
-    @Column(name="task_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "select seq_t_pro_task_id.nextval from dual")
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = " select seq_task_taskid.nextval from dual ")
     public Integer taskid;
-    @Column(name="task_name")
     public String taskname;
-    @Column(name="begin_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date begindate;
-    @Column(name="end_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date enddate;
     public String status;
-    public Double bonus;
-    @Column(name="user_id")
     public Integer userid;
-    @Column(name="task_desc")
+    public Integer sharer;
     public String taskdesc;
+    public User user;
+
+    public String getBegindateString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(this.begindate!=null){
+            return sdf.format(this.begindate);
+        }
+        return null;
+    }
+
+    public String getEnddateString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(this.enddate!=null){
+            return sdf.format(this.enddate);
+        }
+        return null;
+    }
 
 }
