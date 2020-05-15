@@ -78,7 +78,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>4.1.6</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- log4j日志 -->
@@ -86,6 +86,13 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.12</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.6</version>
         </dependency>
 
         <!--<dependency>-->
@@ -112,6 +119,13 @@
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
             <version>4.1.2</version>
+        </dependency>
+
+        <!--热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!--domain注解-->

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 公告模块控制层
@@ -39,9 +38,9 @@ public class AfficheController {
         afficheDto.setUserid(userid);
         afficheDto.setPage(page);
         afficheDto.setPageSize(pageSize);
-//        System.out.println(afficheDto.getUserid());
+        System.out.println(afficheDto.getUserid());
         PageInfo<Affiche> pageInfo=this.afficheService.findAffiches(afficheDto);
-        return new CommonsResult(200, "发布者公告列表", pageInfo);
+        return new CommonsResult(200, "公告列表", pageInfo);
     }
 
     @PostMapping("saveAffiche")
@@ -49,19 +48,8 @@ public class AfficheController {
 //        System.out.println("affiche="+affiche);
         affiche.setReleasetime(new Date());
         if (this.afficheService.saveAffiche(affiche))
-            return new CommonsResult(200, "公告发布成功", null);
+            return new CommonsResult(200, "公告发布成功", affiche);
         return new CommonsResult(500, "公告发布失败", null);
-    }
-
-    @GetMapping("findAfficheByDate")
-    public CommonsResult findAfficheByDate(){
-//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        List list= this.afficheService.findAfficheByDate();
-
-//        System.out.println(list);
-        if(list!=null)
-            return new CommonsResult(200, "登录通告显示", list);
-        return new CommonsResult(500, "今日无通告", null);
     }
 
 
