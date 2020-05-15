@@ -28,12 +28,8 @@ public class AfficheServiceImpl implements AfficheService {
 
         PageHelper.startPage(afficheDto.getPage(), afficheDto.getPageSize());
 
-        Example example=new Example(Affiche.class);
-        Example.Criteria criteria=example.createCriteria();
-        criteria.andEqualTo("userid",afficheDto.getUserid());
-
-//        List list =this.afficheMapper.selectByExample(example);
         List list = this.afficheMapper.findAffiches(afficheDto.getUserid());
+
         PageInfo<Affiche> pageInfo = new PageInfo<Affiche>(list);
         return pageInfo;
     }
@@ -41,5 +37,14 @@ public class AfficheServiceImpl implements AfficheService {
     @Override
     public boolean saveAffiche(Affiche affiche) {
         return this.afficheMapper.insert(affiche) > 0 ? true : false;
+    }
+
+    @Override
+    public List<Affiche> findAfficheByDate() {
+        List list=this.afficheMapper.findAfficheByDate();
+
+        if(list!=null)
+            return list;
+        return null;
     }
 }
