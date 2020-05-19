@@ -10,17 +10,15 @@ import java.util.List;
 
 public interface AttendanceDaoMapper extends Mapper <Attendance> {
 
-    @Select("select a.*,d.username,b.deptname from t_attendance a,t_department b,t_tree_user d where a.deptid=b.deptid and d.deptid=a.userid")
+    @Select("select a.*,b.realname from t_attendance a,t_tree_user b where a.userid=b.userid")
     @Results(id="AttendanceMap",value={
             @Result(column = "attendanceid",property = "attendanceid"),
             @Result(column = "userid",property = "userid"),
             @Result(column = "username",property = "user.username"),
-            @Result(column = "deptid",property = "deptid"),
-            @Result(column = "deptname",property = "department.deptname"),
             @Result(column = "morninghours",property = "morninghours"),
             @Result(column = "afternoonclosingtime",property = "afternoonclosingtime"),
-            @Result(column = "recorddate",property = "recorddate"),
-            @Result(column = "remark ",property = "remark")
+            @Result(column = "clockinstate",property = "clockinstate"),
+            @Result(column = "clockoutstate",property = "clockoutstate"),
     })
     public List<Attendance> findAll();
 }

@@ -20,7 +20,7 @@ public interface AfficheMapper extends Mapper<Affiche> {
             @Result(column = "realname", property = "user.realname"),
             @Result(column = "description", property = "user.description")
     })
-    @Select("select a.*,b.realname,b.description from t_affiche a,t_tree_user b where a.userid=b.userid and b.userid=#{userid}")
+    @Select("select a.*,b.realname,b.description from t_affiche a,t_tree_user b where a.userid=b.userid and b.userid=#{userid} order by a.releasetime desc")
     List<Affiche> findAffiches(Integer userid);
 
     @Results( {

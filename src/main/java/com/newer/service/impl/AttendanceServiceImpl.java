@@ -53,9 +53,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public PageInfo<Attendance> findAll(PageDto dto) {
-        System.out.println(dto.getPage() + "," + dto.getPageSize());
+//        System.out.println(dto.getPage() + "," + dto.getPageSize());
         PageHelper.startPage(dto.getPage(), dto.getPageSize());
         List list = this.attendancemapper.findAll();
+
+//        System.out.println("list=="+list);
         PageInfo pageInfo = new PageInfo<Attendance>(list);
         return pageInfo;
 
