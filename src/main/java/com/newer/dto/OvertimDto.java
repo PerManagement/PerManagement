@@ -1,16 +1,21 @@
-package com.newer.domain;
+package com.newer.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
-@Table(name ="t_overtim")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Overtim {
+@Data
+@Table(name="t_overtim")
+public class OvertimDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID .nextval from dual")
     private Integer overtimID;
@@ -25,4 +30,6 @@ public class Overtim {
     private  String overtimReason ;
     private Integer  approver;
     private String remark;
+    private Integer countovertim;
+    private BigDecimal countsal;
 }
