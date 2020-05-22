@@ -44,7 +44,7 @@ public class Plan {
 		}
 		return null;
 	}
-	 
+
 	 public String getEndtimeString(){
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 if(this.endtime!=null){

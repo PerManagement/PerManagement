@@ -6,13 +6,11 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author 谢海鸿
- * @Date 2020-05-06 19:38
+ * @Date 2020-05-07 22:40
  **/
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class TaskDto extends PageDto {
-    private Integer userid;
-    private String begindate;
-    private String enddate;
+public class PlanDto extends PageDto {
+    private Integer taskid;
 }

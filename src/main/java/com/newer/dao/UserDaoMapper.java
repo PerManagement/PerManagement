@@ -16,15 +16,19 @@ import java.util.List;
  */
 public interface UserDaoMapper extends Mapper<User> {
     @Select("select * from t_tree_user where username=#{username}")
-    @Results(
+    @Results({
+            @Result(column = "userid",property = "userid"),
             @Result(column = "userid",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
-    )
+    })
     public User login(String username);
 
 
     //谢海鸿  05-04 14:58 查询相关主管的下属
     @Select("select a.*,c.id cid,c.rolename from t_tree_user a,t_tree_user_role b,t_tree_role c where a.userid=b.userid and b.roleid=c.id and a.description='员工' and upno=#{id}")
     public List<User> findExecutor(Integer id);
+
+    @Select(" select a.*,c.id cid,c.rolename from t_tree_user a,t_tree_user_role b,t_tree_role c where a.userid=b.userid and b.roleid=c.id  and a.description='员工' and upno=#{id} and a.userid not in(select distinct(userid) from t_pro_task where userid=#{userid})")
+    public List<User> findUsers(Integer id,Integer userid);
 
     @Select("select * from t_tree_user where userid=#{userid}")
     @Results(

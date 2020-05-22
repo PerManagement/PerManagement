@@ -4,9 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.dao.PlanMapper;
 import com.newer.domain.Plan;
-import com.newer.domain.Task;
-import com.newer.dto.PageDto;
+import com.newer.dto.PlanDto;
 import com.newer.service.PlanService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +24,35 @@ public class PlanServiceImpl implements PlanService {
     private PlanMapper planMapper;
 
     @Override
+    public boolean save(Plan plan) {
+        plan.setState("未完成");
+        return this.planMapper.insertSelective(plan)>0?true:false;
+    }
+
+    @Override
     public boolean update(Plan plan) {
         return this.planMapper.updateByPrimaryKeySelective(plan)>0?true:false;
     }
 
     @Override
-    public PageInfo<Plan> findPlan(PageDto dto) {
-
-        PageHelper.startPage(dto.getPage(), dto.getPageSize());
-        List list=this.planMapper.findPlan();
+    public PageInfo<Plan> findPlanById(@Param("planDto")PlanDto planDto) {
+        PageHelper.startPage(planDto.getPage(), planDto.getPageSize());
+        List<Plan> list=this.planMapper.selectAll();
         PageInfo<Plan> pageInfo=new PageInfo<Plan>(list);
         return pageInfo;
     }
+
+    @Override
+    public PageInfo<Plan> findPlan(@Param("planDto")PlanDto planDto) {
+        PageHelper.startPage(planDto.getPage(), planDto.getPageSize());
+        List<Plan> list=this.planMapper.findPlan(planDto.getTaskid());
+        PageInfo<Plan> pageInfo=new PageInfo<Plan>(list);
+        return pageInfo;
+    }
+
+//    @Override
+//    public List<Plan> findPlan(Integer taskid) {
+//        List list= this.planMapper.findPlan(taskid);
+//        return list;
+//    }
 }

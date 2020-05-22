@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 功能描述：任务管理试题类
@@ -23,17 +24,31 @@ import java.util.Date;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = " select seq_task_taskid.nextval from dual ")
-    public Integer taskid;
-    public String taskname;
+    private Integer taskid;
+    private String taskname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public Date begindate;
+    private Date begindate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public Date enddate;
-    public String status;
-    public Integer userid;
-    public Integer sharer;
-    public String taskdesc;
-    public User user;
+    private Date enddate;
+    private String status;
+    private Integer userid;
+    private Integer sharer;
+    private String taskdesc;
+    private String reason;
+    private User user;
+    private List<Plan> plan;
+    private volatile TaskDetail taskDetail;
+
+    public TaskDetail getTaskDetail(){
+        if (taskDetail==null){
+        synchronized (Task.class){
+            if (taskDetail==null){
+                taskDetail=new TaskDetail();
+            }
+       }
+        }
+        return taskDetail;
+    }
 
     public String getBegindateString(){
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
