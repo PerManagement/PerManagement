@@ -1,5 +1,6 @@
 package com.newer.domain;
 
+import com.newer.dto.LeaveDto;
 import com.newer.dto.OvertimDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,7 +28,6 @@ public class Wage {
     private BigDecimal netpayroll;
     private BigDecimal absenteeism;
     private BigDecimal lateandearly;
-    private BigDecimal leave;
     private String wagestate;
     private String issuestate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -42,6 +42,7 @@ public class Wage {
     private Evection evection;
     private EvectionAccount evectionaccount;
     private Attendance attendance;
+    private LeaveDto leave;
 
 
     public String getWagedateString(){

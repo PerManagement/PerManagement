@@ -8,26 +8,24 @@ import org.apache.ibatis.jdbc.SQL;
 public class WageProvide {
     public String findByDate(final @Param("wageDto") WagePageDto wageDto) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("select * from (select a.*,b.userid as u_id,b.username from " +
-                "(select a.*,d.username uname,d.basepay,c.deptname,b.subsidy,b.carallwance," +
-                "b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance," +
-                "b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance," +
-                "b.reservedfunds from t_wage a,welfare b,t_department c,t_tree_user d " +
-                "where a.welfareid=b.welfareid and c.deptid=a.deptid and d.userid=a.userid) " +
-                "a,t_tree_user b where a.issuer=b.userid and  issuestate='已发放')a " +
-                "left join (select e.userid,count(e.remark)*20 belated from(select a.*," +
-                "b.userid as u_id,b.username from (select a.*,d.username uname,c.deptname," +
-                "b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc," +
-                "b.endowmentinsurance,b.unemploymentinsurance,b.birthinsurance," +
-                "b.employmentinjuryinsurance,b.reservedfunds from t_wage a,welfare b," +
-                "t_department c,t_tree_user d where a.welfareid=b.welfareid and " +
-                "c.deptid=a.deptid and d.userid=a.userid) a,t_tree_user b where " +
-                "a.issuer=b.userid  and  issuestate='已发放')a,t_attendance e where " +
-                "a.userid=e.userid and e.remark='迟到了' group by e.userid) b on " +
-                "a.userid=b.userid left join  (select sum(total) evectionAccount,userid " +
-                "from t_evectionAccount a,t_evection b where a.evectionid=b.evectionid " +
-                "group by b.userid)c  on a.userid=c.userid left join (select count(remark) " +
-                "overtim,userid from t_overtim group by userid) d on a.userid=d.userid where 1=1");
+        stringBuffer.append("select a.*,b.*,nvl(c.evectionAccount,0) as evectionAccount,nvl(d.overtim,0) as overtim,nvl(e.dur,0) as leavesal,leavereason from  \n" +
+                "(select a.*,d.username uname,d.basepay,c.deptname,b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,\n" +
+                "b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,welfare b,t_department c,t_tree_user d \n" +
+                "where a.welfareid=b.welfareid and c.deptid=a.deptid and d.userid=a.userid   and issuestate='已发放')a left join \n" +
+                "(select e.userid as attendance_userid,count(e.remark)*20 belated \n" +
+                "from(select a.*,d.username uname,c.deptname,b.subsidy,b.carallwance,\n" +
+                "b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,b.unemploymentinsurance,\n" +
+                "b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,                       \n" +
+                "welfare b,t_department c,t_tree_user d where a.welfareid=b.welfareid and \n" +
+                "c.deptid=a.deptid and d.userid=a.userid and issuestate='已发放')a,t_attendance e \n" +
+                " where a.userid=e.userid and e.remark='迟到了' group by e.userid) b on \n" +
+                "a.userid=b.attendance_userid left join (select sum(total) evectionAccount,userid evection_userid from \n" +
+                "t_evectionAccount a,t_evection b where a.evectionid=b.evectionid group by \n" +
+                "b.userid)c on a.userid=c.evection_userid left join (select count(remark) overtim,userid overtim_userid " +
+                "from t_overtim group by userid) d on a.userid=d.overtim_userid left join \n" +
+                "(select userid leaveuserid,count(duration) dur,leavereason from t_leave group by userid，duration，leavereason) e \n" +
+                "on e.leaveuserid=a.userid " +
+                " where 1=1");
 
 //                SELECT(" * ");
 //                FROM(" a,t_tree_user b  ");

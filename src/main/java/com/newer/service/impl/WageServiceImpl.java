@@ -98,13 +98,21 @@ public class WageServiceImpl implements WageService {
         PageHelper.startPage(wageDto.getPage(),wageDto.getPageSize());
         List<Wage> list=this.wageMapper.pageInfo();
         for(Wage w : list){
-//            if(w.getEvectionaccount().getTotal()==null){
-//                w.getEvectionaccount().setTotal(0);
-//            }
-//            if (w.getOvertim().getCountovertim()==null){
-//                w.getOvertim().setCountovertim(0);
-//            }
-            BigDecimal bigDecimal=new BigDecimal(0.1);
+            if("事假".equals(w.getLeave().getLeavereason())){
+                BigDecimal bigDecimal=new BigDecimal(21.75);
+                BigDecimal bigDecima2=new BigDecimal(w.getLeave().getDuration());
+                w.getLeave().setSaltotal(bigDecima2.multiply(w.getUser().getBasepay().divide(bigDecimal,2,BigDecimal.ROUND_HALF_UP)).setScale(2, BigDecimal.ROUND_HALF_UP));
+            }
+            if("病假".equals(w.getLeave().getLeavereason())){
+                BigDecimal bigDecimal=new BigDecimal(21.75);
+                BigDecimal bigDecima2=new BigDecimal(0.40);
+                BigDecimal bigDecima3=new BigDecimal(w.getLeave().getDuration());
+                w.getLeave().setSaltotal(bigDecima3.multiply(w.getUser().getBasepay().divide(bigDecimal,2, BigDecimal.ROUND_HALF_UP).multiply(bigDecima2).setScale(2, BigDecimal.ROUND_HALF_UP)).setScale(2, BigDecimal.ROUND_HALF_UP));
+            }
+            if (w.getOvertim().getCountovertim()==null){
+                w.getOvertim().setCountovertim(0);
+            }
+            BigDecimal bigDecimal=new BigDecimal(0.01);
             BigDecimal bigDecimal2=new BigDecimal(w.getOvertim().getCountovertim());
             w.getOvertim().setCountsal(bigDecimal2.multiply(w.getUser().getBasepay().multiply(bigDecimal)));
         }
@@ -118,6 +126,17 @@ public class WageServiceImpl implements WageService {
         List<Wage> list=this.wageMapper.pageInfo2();
 
         for(Wage w : list){
+            if("事假".equals(w.getLeave().getLeavereason())){
+                BigDecimal bigDecimal=new BigDecimal(21.75);
+                BigDecimal bigDecima2=new BigDecimal(w.getLeave().getDuration());
+                w.getLeave().setSaltotal(bigDecima2.multiply(w.getUser().getBasepay().divide(bigDecimal,2,BigDecimal.ROUND_HALF_UP)).setScale(2, BigDecimal.ROUND_HALF_UP));
+            }
+            if("病假".equals(w.getLeave().getLeavereason())){
+                BigDecimal bigDecimal=new BigDecimal(21.75);
+                BigDecimal bigDecima2=new BigDecimal(0.40);
+                BigDecimal bigDecima3=new BigDecimal(w.getLeave().getDuration());
+                w.getLeave().setSaltotal(bigDecima3.multiply(w.getUser().getBasepay().divide(bigDecimal,2, BigDecimal.ROUND_HALF_UP).multiply(bigDecima2).setScale(2, BigDecimal.ROUND_HALF_UP)).setScale(2, BigDecimal.ROUND_HALF_UP));
+            }
             if (w.getOvertim().getCountovertim()==null){
                 w.getOvertim().setCountovertim(0);
             }
