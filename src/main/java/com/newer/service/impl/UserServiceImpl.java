@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findExecutor(Integer id) {
         return this.dao.findExecutor(id);
     }
+
+    @Override
+    public List<User> findUsers(Integer id,Integer userid) {
+        return this.dao.findUsers(id,userid);
+    }
 }

@@ -1,10 +1,8 @@
 package com.newer.dao;
 
 import com.newer.domain.Plan;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import com.newer.dto.PlanDto;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -17,9 +15,7 @@ import java.util.List;
 public interface PlanMapper extends Mapper<Plan> {
 
     //谢海鸿 05-05 17:25
-    @Results({
-            @Result(column = "taskname",property = "task.taskname"),
-    })
-    @Select("select a.*,b.taskname from t_pro_plan a,t_pro_task b where a.taskid=b.taskid")
-    List<Plan> findPlan();
+
+    @Select("select * from t_pro_plan  where taskid = #{taskid}")
+    List<Plan> findPlan(Integer taskid);
 }

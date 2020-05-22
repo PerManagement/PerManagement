@@ -28,7 +28,29 @@ public class TaskProvider {
                 }
             }
         }.toString();
-
     }
+
+
+//    public String findTaskByUserId(final @Param("taskByUserIdDto") TaskByUserIdDto taskByUserIdDto){
+//        System.out.println("动态sQL:"+taskByUserIdDto);
+//        return new SQL(){
+//            {
+//                SELECT(" a.*,b.username,b.realname,b.upno ");
+//                FROM(" t_pro_task a,t_tree_user b ");
+//                WHERE(" a.userid=b.userid ");
+//                WHERE(" a.userid=#{taskByUserIdDto.userid} ");
+//                if(taskByUserIdDto!=null){
+//                    if(taskByUserIdDto.getBegindate()!=null && !taskByUserIdDto.getBegindate().equals("")){
+//                        taskByUserIdDto.setBegindate(taskByUserIdDto.getBegindate());
+//                        WHERE(" a.begindate >= to_date(#{taskByUserIdDto.begindate},'yyyy-MM-dd') ");
+//                    }
+//                    if(taskByUserIdDto.getEnddate()!=null && !taskByUserIdDto.getEnddate().equals("")){
+//                        taskByUserIdDto.setEnddate(taskByUserIdDto.getEnddate());
+//                        WHERE(" a.enddate <= to_date(#{taskByUserIdDto.enddate},'yyyy-MM-dd') ");
+//                    }
+//                }
+//            }
+//        }.toString();
+//    }
 }
 
