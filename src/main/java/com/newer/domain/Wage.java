@@ -1,10 +1,13 @@
 package com.newer.domain;
 
+import com.newer.dto.LeaveDto;
+import com.newer.dto.OvertimDto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,13 +28,28 @@ public class Wage {
     private BigDecimal netpayroll;
     private BigDecimal absenteeism;
     private BigDecimal lateandearly;
-    private BigDecimal leave;
     private String wagestate;
     private String issuestate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String wagedate;
+    private Date wagedate;
     private Integer issuer;
+    private String remark;
+    private User userissuer;
     private User user;
     private Welfare welfare;
+    private Department dept;
+    private OvertimDto overtim;
+    private Evection evection;
+    private EvectionAccount evectionaccount;
+    private Attendance attendance;
+    private LeaveDto leave;
+
+
+    public String getWagedateString(){
+        if(this.wagedate!=null){
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.wagedate);
+        }
+        return null;
+    }
 
 }

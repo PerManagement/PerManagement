@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.newer.domain.Wage;
 import com.newer.dto.WagePageDto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -18,10 +19,11 @@ public interface WageService {
     public PageInfo<Wage> pageInfo2(WagePageDto page);
     public PageInfo<Wage> pageInfoByDate(WagePageDto page);
     public PageInfo<Wage> findByUserId(WagePageDto page);
+    public int update(Wage wage);
     public int updateWage(Integer userId,Integer wageId);
     public int updateState(Integer wageId);
-    public int updateState2(Integer wageId);
-    public int updateState3(Integer wageId);
+    public int updateState2(Integer wageId,String remark);
+    public int updateState3(Integer wageId, BigDecimal netPayroll);
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class User{
     private String password;
     private String realname;
     private String salt;
+    private BigDecimal basepay;
     private String description;
     private Integer locked;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
