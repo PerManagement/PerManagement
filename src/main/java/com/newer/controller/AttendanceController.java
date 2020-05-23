@@ -108,6 +108,16 @@ public class AttendanceController {
         return  new CommonsResult(500,"下班打卡失败，请再次尝试",null);
     }
 
+    @GetMapping("findAttendanceByUserId")
+    public CommonsResult findAttendanceByUserId(Integer userid){
+
+        Attendance attendance=this.abstractServiceimpl.findAttendanceByUserId(userid);
+
+        if(attendance!=null){
+            return  new CommonsResult(200,"今日已上班打卡",attendance);
+        }
+        return  new CommonsResult(500,"今日还未上班打卡，请打卡",null);
+    }
 
 }
 

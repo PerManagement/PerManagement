@@ -3,7 +3,7 @@ package com.newer.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.newer.dao.AttendanceDaoMapper;
+import com.newer.dao.AttendanceMapper;
 import com.newer.domain.Attendance;
 import com.newer.dto.PageDto;
 import com.newer.service.AttendanceService;
@@ -16,10 +16,15 @@ import java.util.List;
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
     @Autowired
-    private AttendanceDaoMapper attendancemapper;
+    private AttendanceMapper attendancemapper;
     @Override
     public Attendance findAttendancebyid(Integer id) {
         return this.attendancemapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Attendance findAttendanceByUserId(Integer userid) {
+        return this.attendancemapper.findAttendanceByUserId(userid);
     }
 
 

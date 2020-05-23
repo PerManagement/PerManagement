@@ -4,24 +4,28 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
-@Table(name ="t_overtim")
+@Table(name = "t_overtim")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Overtim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID .nextval from dual")
-    private Integer overtimID;
+    private Integer overtimid;
     private Integer userid;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data overtimedate;
+    private Date overtimedate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data  stoPovertime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data  overtimedated;
-    private  String overtimstate;
-    private  String overtimReason ;
-    private Integer  approver;
+    private Date stopovertime;
+    private String overtimstate;
+    private String overtimreason;
+    private Integer approver;
     private String remark;
+    private String overtimtype;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date overtimedated;
+    private User user;
+
 }

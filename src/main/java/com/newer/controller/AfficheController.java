@@ -41,7 +41,9 @@ public class AfficheController {
         afficheDto.setPageSize(pageSize);
         System.out.println(afficheDto.getUserid());
         PageInfo<Affiche> pageInfo=this.afficheService.findAffiches(afficheDto);
-        return new CommonsResult(200, "公告列表", pageInfo);
+        if(pageInfo!=null)
+            return new CommonsResult(200, "公告列表", pageInfo);
+        return new CommonsResult(500, "今日暂无通告", pageInfo);
     }
 
     @PostMapping("saveAffiche")
