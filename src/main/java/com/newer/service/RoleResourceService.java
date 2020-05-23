@@ -1,5 +1,6 @@
 package com.newer.service;
 
+import com.newer.domain.Resource;
 import com.newer.domain.RoleResource;
 
 import java.util.List;
@@ -10,4 +11,6 @@ import java.util.List;
  */
 public interface RoleResourceService {
     public List<RoleResource> findByRoleId(Integer id);
+
+
 }
