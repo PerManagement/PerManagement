@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.mapping.FetchType;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.persistence.Column;
 import java.util.List;
 
 /**
@@ -35,4 +36,10 @@ public interface UserDaoMapper extends Mapper<User> {
             @Result(column = "id",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
     )
     public User findUserById(Integer userid);
+
+    @Select("select a.*,b.deptname from t_tree_user a,t_department b where a.deptid=b.deptid and a.deletestatus=0 ")
+    @Results({
+            @Result(column = "deptname",property = "department.deptname")
+    })
+    public List<User> showUser();
 }
