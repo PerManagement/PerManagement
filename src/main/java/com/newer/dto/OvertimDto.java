@@ -15,7 +15,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @Table(name="t_overtim")
-public class OvertimDto {
+public class OvertimDto extends PageDto{
+    private Integer upno;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID .nextval from dual")
     private Integer overtimID;
