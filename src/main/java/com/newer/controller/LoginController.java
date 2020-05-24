@@ -12,7 +12,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,11 +47,10 @@ public class LoginController {
         return new CommonsResult(200,"登录成功",user1);
     }
 
-    @PostMapping("/logout")
-    public CommonsResult logout(HttpSession session) {
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        return new CommonsResult(200, "注销成功",null);
+    @GetMapping("/hello")
+    public User hello(ModelMap modelMap){
+        System.out.println((User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER));
+        return (User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
     }
     @GetMapping("/hello1")
     public String hello1(){

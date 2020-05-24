@@ -24,9 +24,4 @@ public class ResourceServiceImpl implements ResourceService {
     public List<Resource> findAll() {
         return  this.daoMapper.selectAll();
     }
-
-    @Override
-    public List<Resource> tree(Integer id) {
-        return this.daoMapper.tree(id);
-    }
 }

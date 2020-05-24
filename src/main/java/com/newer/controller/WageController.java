@@ -8,9 +8,7 @@ import com.newer.util.CommonsResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 功能描述：薪资管理模块控制层
@@ -24,7 +22,7 @@ public class WageController {
     public WageServiceImpl wageServiceImpl;
 
     //跳转页面
-    @GetMapping("doSave")
+    @GetMapping("createWage")
     public CommonsResult goSave(){
         return new CommonsResult(200,"跳转发放工资界面","createWage");
     }
@@ -32,7 +30,6 @@ public class WageController {
     //发放薪资
     @GetMapping("saveWage")
     public CommonsResult doSave(@RequestBody Wage wage){
-
         int a=this.wageServiceImpl.save(wage);
         if(a>0){
             return  new CommonsResult(200,"发放成功",wage);
@@ -66,9 +63,8 @@ public class WageController {
 
     //发放薪资
     @GetMapping("updateState2")
-    public CommonsResult updateState2(Integer wageid,String remark){
-        System.out.println(remark);
-        int a=this.wageServiceImpl.updateState2(wageid,remark);
+    public CommonsResult updateState2(@RequestParam Integer wageid){
+        int a=this.wageServiceImpl.updateState2(wageid);
         if(a>0){
             return  new CommonsResult(200,"驳回成功",a);
         }
@@ -77,8 +73,8 @@ public class WageController {
 
     //发放薪资
     @GetMapping("updateState3")
-    public CommonsResult updateState3(@RequestParam Integer wageid, BigDecimal netPayroll){
-        int a=this.wageServiceImpl.updateState3(wageid,netPayroll);
+    public CommonsResult updateState3(@RequestParam Integer wageid){
+        int a=this.wageServiceImpl.updateState3(wageid);
         if(a>0){
             return  new CommonsResult(200,"再次申请成功",a);
         }

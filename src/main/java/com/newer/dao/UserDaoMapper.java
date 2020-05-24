@@ -16,12 +16,10 @@ import java.util.List;
  */
 public interface UserDaoMapper extends Mapper<User> {
     @Select("select * from t_tree_user where username=#{username}")
-    @Results(
-            {
-                    @Result(column = "userid",property = "userid"),
-                    @Result(column = "userid",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
-            }
-    )
+    @Results({
+            @Result(column = "userid",property = "userid"),
+            @Result(column = "userid",property = "userRoles",many=@Many(select="com.newer.dao.UserRoleDaoMapper.getUserRolebyUserId",fetchType= FetchType.EAGER))
+    })
     public User login(String username);
 
 

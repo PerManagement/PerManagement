@@ -10,6 +10,7 @@ import org.apache.ibatis.jdbc.SQL;
  **/
 public class TaskProvider {
     public String findTask(final @Param("taskDto") TaskDto taskDto){
+        System.out.println("动态sQL:"+taskDto);
         return new SQL(){
             {
                 SELECT(" a.*,b.username,b.realname,b.upno ");

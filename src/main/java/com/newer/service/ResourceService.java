@@ -10,7 +10,4 @@ import java.util.List;
  */
 public interface ResourceService {
     public List<Resource> findAll();
-
-    //tree树形结构
-    List<Resource> tree(Integer id);
 }
