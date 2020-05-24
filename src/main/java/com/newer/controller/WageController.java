@@ -55,8 +55,8 @@ public class WageController {
 
     //发放薪资
     @GetMapping("updateState")
-    public CommonsResult updateState(@RequestParam Integer wageid){
-        int a=this.wageServiceImpl.updateState(wageid);
+    public CommonsResult updateState(@RequestParam Integer wageid,Integer approrver){
+        int a=this.wageServiceImpl.updateState(wageid,approrver);
         if(a>0){
             System.out.println("审批成功");
             return  new CommonsResult(200,"审批成功",a);
@@ -66,9 +66,9 @@ public class WageController {
 
     //发放薪资
     @GetMapping("updateState2")
-    public CommonsResult updateState2(Integer wageid,String remark){
+    public CommonsResult updateState2(Integer wageid,String remark,Integer approrver){
         System.out.println(remark);
-        int a=this.wageServiceImpl.updateState2(wageid,remark);
+        int a=this.wageServiceImpl.updateState2(wageid,remark,approrver);
         if(a>0){
             return  new CommonsResult(200,"驳回成功",a);
         }

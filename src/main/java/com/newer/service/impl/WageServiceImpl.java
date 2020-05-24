@@ -53,8 +53,15 @@ public class WageServiceImpl implements WageService {
     }
 
     @Override
-    public int updateState(Integer wageId) {
-        int a=this.wageMapper.updateState(wageId);
+    public int updateState(Integer wageId,Integer approrver) {
+        Wage wage = new Wage();
+        wage.setWageid(wageId);
+        wage.setAppover(approrver);
+        wage.setWagestate("已审核");
+        Example example=new Example(wage.getClass());
+        Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("wageid",wageId);
+        int a=this.wageMapper.updateByExampleSelective(wage,example);
         if(a>0){
             return a;
         }
@@ -62,10 +69,11 @@ public class WageServiceImpl implements WageService {
     }
 
     @Override
-    public int updateState2(Integer wageId,String remark) {
+    public int updateState2(Integer wageId,String remark,Integer approrver) {
         Wage wage = new Wage();
         wage.setWageid(wageId);
         wage.setRemark(remark);
+        wage.setAppover(approrver);
         wage.setWagestate("驳回");
         Example example=new Example(wage.getClass());
         Criteria criteria=example.createCriteria();

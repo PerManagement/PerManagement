@@ -34,6 +34,8 @@ public class Wage {
     private Date wagedate;
     private Integer issuer;
     private String remark;
+    private Integer appover;
+    private User userapprover;
     private User userissuer;
     private User user;
     private Welfare welfare;

@@ -116,28 +116,31 @@ public interface WageMapper extends Mapper<Wage> {
     List<Wage> pageInfo2();
 
     @Select("select a.*,b.*,nvl(c.evectionAccount,0) as evectionAccount,nvl(d.overtim,0) as overtim,nvl(e.dur,0) as leavesal,leavereason from  \n" +
+            "(select a.*,b.userid as u_id,b.username from \n" +
             "(select a.*,d.username uname,d.basepay,c.deptname,b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,\n" +
-            "b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,welfare b,t_department c,t_tree_user d \n" +
-            "where a.welfareid=b.welfareid and c.deptid=a.deptid and d.userid=a.userid and issuestate='已发放')a left join \n" +
-            "(select e.userid as attendance_userid,count(e.remark)*20 belated \n" +
-            "from(select a.*,d.username uname,c.deptname,b.subsidy,b.carallwance,\n" +
-            "b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,b.unemploymentinsurance,\n" +
-            "b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,                       \n" +
-            "welfare b,t_department c,t_tree_user d where a.welfareid=b.welfareid and \n" +
-            "c.deptid=a.deptid and d.userid=a.userid and issuestate='已发放')a,t_attendance e \n" +
-            " where a.userid=e.userid and e.remark='迟到了' group by e.userid) b on \n" +
+            "b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,welfare b,t_department c,\n" +
+            "t_tree_user d where a.welfareid=b.welfareid and c.deptid=a.deptid and d.userid=a.userid) a,t_tree_user b \n" +
+            "where a.issuer=b.userid and issuestate='已发放')a left join \n" +
+            "(select e.userid as attendance_userid,count(e.remark)*20 belated ,a.approveruserid,a.approvername\n" +
+            "from(select a.*,b.userid as approveruserid,b.username approvername from \n" +
+            "(select a.*,d.username uname,c.deptname,b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,\n" +
+            "b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,welfare b,t_department c,\n" +
+            "t_tree_user d where a.welfareid=b.welfareid and c.deptid=a.deptid and d.userid=a.userid) a,t_tree_user b \n" +
+            "where a.approver=b.userid and issuestate='已发放')a,t_attendance e \n" +
+            " where a.userid=e.userid and e.remark='迟到了' group by e.userid,a.approveruserid,a.approvername) b on \n" +
             "a.userid=b.attendance_userid left join (select sum(total) evectionAccount,userid evection_userid from \n" +
             "t_evectionAccount a,t_evection b where a.evectionid=b.evectionid group by \n" +
             "b.userid)c on a.userid=c.evection_userid left join (select count(remark) overtim,userid overtim_userid " +
             "from t_overtim group by userid) d on a.userid=d.overtim_userid left join \n" +
             "(select userid leaveuserid,count(duration) dur,leavereason from t_leave group by userid，duration，leavereason) e \n" +
-            "on e.leaveuserid=a.userid" +
+            "on e.leaveuserid=a.userid " +
             " where a.userid=#{userId}")
     @Results(id="wageMap3",value={
             @Result(column = "wageid",property = "wageid"),
             @Result(column = "userid",property = "user.userid"),
             @Result(column = "uname",property = "user.username"),
             @Result(column = "basepay",property = "user.basepay"),
+            @Result(column = "approvername",property = "userapprover.username"),
             @Result(column = "username",property = "userissuer.username"),
             @Result(column = "deptname",property = "dept.deptname"),
             @Result(column = "welfareid",property = "welfare.welfareid"),
@@ -170,6 +173,7 @@ public interface WageMapper extends Mapper<Wage> {
             @Result(column = "userid",property = "user.userid"),
             @Result(column = "uname",property = "user.username"),
             @Result(column = "basepay",property = "user.basepay"),
+            @Result(column = "approvername",property = "userapprover.username"),
             @Result(column = "username",property = "userissuer.username"),
             @Result(column = "deptname",property = "dept.deptname"),
             @Result(column = "welfareid",property = "welfare.welfareid"),
@@ -191,9 +195,9 @@ public interface WageMapper extends Mapper<Wage> {
             @Result(column = "evectionaccount",property = "evectionaccount.total"),
             @Result(column = "belated",property = "attendance.remark"),
             @Result(column = "userid",property = "attendance.userid"),
-                    @Result(column = "leave_userid",property = "leave.userid"),
-                    @Result(column = "leavesal",property = "leave.duration"),
-                    @Result(column = "leavereason",property = "leave.leavereason"),
+            @Result(column = "leave_userid",property = "leave.userid"),
+            @Result(column = "leavesal",property = "leave.duration"),
+            @Result(column = "leavereason",property = "leave.leavereason"),
     })
     @SelectProvider(method = "findByDate",type = WageProvide.class )
     List<Wage> pageInfoByDate(@Param("wageDto") WagePageDto wageDto);
@@ -209,8 +213,8 @@ public interface WageMapper extends Mapper<Wage> {
 //    @Update("update t_wage set issuestate='已发放',issuer=#{arg0} where wageid=#{arg1}")
 //    int updateWage(Integer  arg0,Integer arg1);
 
-    @Update("update t_wage set wageState = '已审核' where wageid=#{wageid}")
-    int updateState(Integer wageId);
+//    @Update("update t_wage set wageState = '已审核' where wageid=#{wageid}")
+//    int updateState(Integer wageId,Integer apporver);
 
 //    @Update("update t_wage set wageState = '驳回', where wageid=#{wageid}")
 //    int updateState2(Integer wageId);

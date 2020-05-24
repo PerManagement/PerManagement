@@ -21,8 +21,8 @@ public interface WageService {
     public PageInfo<Wage> findByUserId(WagePageDto page);
     public int update(Wage wage);
     public int updateWage(Integer userId,Integer wageId);
-    public int updateState(Integer wageId);
-    public int updateState2(Integer wageId,String remark);
+    public int updateState(Integer wageId,Integer approrver);
+    public int updateState2(Integer wageId,String remark,Integer apporver);
     public int updateState3(Integer wageId, BigDecimal netPayroll);
 
 
