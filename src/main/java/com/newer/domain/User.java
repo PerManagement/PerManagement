@@ -7,8 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -27,10 +26,11 @@ public class User{
     private String password;
     private String realname;
     private String salt;
+    private BigDecimal basepay;
     private String description;
     private Integer locked;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createtime;
+    private String createtime;
     private Integer deletestatus;
     private String sex;
     private Integer age;
@@ -42,15 +42,7 @@ public class User{
     private String area;
     private String address;
     private Integer upno;
-    private Integer deptid;
+    private Integer deptno;
     private List<UserRole> userRoles;
-    private Department department;
-    public String getCreatetimeString(){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(this.createtime!=null){
-            return sdf.format(this.createtime);
-        }
-        return null;
-    }
 
 }
