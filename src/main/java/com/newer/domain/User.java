@@ -41,6 +41,7 @@ public class User{
     private String address;
     private Integer upno;
     private Integer deptno;
+    private Integer sjide;
     private List<UserRole> userRoles;
 
 }
