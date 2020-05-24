@@ -28,7 +28,17 @@ public class OvertimServiceImpl implements OvertimService {
         PageHelper.startPage(overtimDto.getPage(), overtimDto.getPageSize());
 
         List list = this.overtimMapper.findOvertimByUpno(overtimDto.getUpno());
+
+//        for (Object obj:list){
+//            System.out.println(obj);
+//        }
+
         PageInfo<Overtim> pageInfo = new PageInfo<Overtim>(list);
         return pageInfo;
+    }
+
+    @Override
+    public Overtim findOvertimByKey(Integer overtimid) {
+        return this.overtimMapper.findOvertimByKey(overtimid);
     }
 }

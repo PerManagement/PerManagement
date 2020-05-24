@@ -2,6 +2,7 @@ package com.newer.dao;
 
 import com.newer.domain.Overtim;
 import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface OvertimMapper extends Mapper<Overtim> {
 
-    @Results({
+    @Results(id = "OvertimMap",value = {
             @Result(column = "overtimid", property = "overtimid"),
             @Result(column = "userid", property = "userid"),
             @Result(column = "userid", property = "user.userid"),
@@ -26,5 +27,10 @@ public interface OvertimMapper extends Mapper<Overtim> {
     @Select("select b.*,a.realname from t_tree_user a,t_overtim b " +
             " where a.userid=b.userid and b.overtimtype='待审批' " +
             " and a.upno=#{upno} order by b.overtimedated desc")
-    List findOvertimByUpno(Integer upno);
+    List<Overtim> findOvertimByUpno(Integer upno);
+
+    @ResultMap("OvertimMap")
+    @Select("select b.*,a.realname from t_tree_user a,t_overtim b " +
+            "where a.userid=b.userid and b.overtimid=#{overtimid}")
+    Overtim findOvertimByKey(Integer overtimid);
 }

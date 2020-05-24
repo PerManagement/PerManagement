@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OvertimDto extends PageDto{
-    private Integer Upno;
+    private Integer upno;
 }

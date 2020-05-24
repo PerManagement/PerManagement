@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table(name = "t_overtim")
@@ -28,4 +29,22 @@ public class Overtim {
     private Date overtimedated;
     private User user;
 
+    public String getOvertimedateString(){
+        if(this.overtimedate!=null){
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.overtimedate);
+        }
+        return null;
+    }
+    public String getStopovertimeString(){
+        if(this.stopovertime!=null){
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.stopovertime);
+        }
+        return null;
+    }
+    public String getOvertimedatedString(){
+        if(this.overtimedated!=null){
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.overtimedated);
+        }
+        return null;
+    }
 }
