@@ -22,7 +22,6 @@ public interface DimissionDaoMapper extends Mapper<Dimission> {
             @Result(column = "dmission_id",property = "dmissionId"),
             @Result(column = "dim_date",property = "dimDate"),
             @Result(column = "exist_task",property = "existTask"),
-
     })
     @SelectProvider(method = "showDimission",type = DimissionProvider.class)
     public List<Dimission> showDimission(@Param("user") User user);

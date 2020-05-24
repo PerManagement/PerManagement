@@ -13,4 +13,7 @@ public interface UserService {
 
     //谢海鸿  05-04 15:03 查询相关主管的下属
     public List<User> findExecutor(Integer id);
+
+    //管理员查询所有员工
+    public List<User> showUser();
 }

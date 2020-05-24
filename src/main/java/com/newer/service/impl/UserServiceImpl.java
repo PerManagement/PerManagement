@@ -5,6 +5,7 @@ import com.newer.domain.User;
 import com.newer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -30,5 +31,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findExecutor(Integer id) {
         return this.dao.findExecutor(id);
+    }
+
+    //何辉 ，管理员查询所有为离职员工
+    @Override
+    public List<User> showUser() {
+        List<User> users = this.dao.showUser();
+        return users;
     }
 }

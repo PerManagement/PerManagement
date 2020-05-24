@@ -32,13 +32,16 @@ public class Dimission {
     private Integer heir;
     private String state;
     @Column(name = "state_id")
-    private String stateId;
+    private Integer stateId;
     @Column(name = "FINAL")
     private String final1;
     @Column(name = "final_id")
-    private String finalId;
+    private Integer finalId;
     private String feedback;
+    @Column(name = "reject_reason")
+    private String rejectReason;
     private User user;
+
     public String getDimDateString(){
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(this.dimDate!=null){

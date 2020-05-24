@@ -15,7 +15,7 @@ public class DimissionProvider {
                 if ("经理".equals(user.getDescription())){
                     buffer.append( " and b.upno = #{user.userid} and a.state is null " );
                 }else{
-                    buffer.append(" and a.state is not null and a.final is null ");
+                    buffer.append(" and a.state is not null and a.final is null and a.state = '批准' ");
                 }
          return buffer.toString();
     }

@@ -7,6 +7,7 @@ import com.newer.domain.User;
 import com.newer.dto.PageDto;
 import com.newer.service.DimissionService;
 import com.newer.service.ResourceService;
+import com.newer.service.UserService;
 import com.newer.util.CommonsResult;
 import com.newer.util.Sessions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class AdminController {
     private ResourceService resourceService;
 @Autowired
     private DimissionService dimissionService;
+@Autowired
+private UserService userService;
 
     //树形结构查询
     @GetMapping("tree")
@@ -64,9 +67,25 @@ public class AdminController {
     }
 
     //驳回离职请求
-    @GetMapping("reject")
-    public CommonsResult reject(Integer id,HttpSession session,ModelMap modelMap)throws ParseException {
+    @PostMapping("reject")
+    public CommonsResult reject(@RequestBody Dimission dimission,HttpSession session,ModelMap modelMap)throws ParseException {
         User user =(User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
-        return null;
+        CommonsResult reject = this.dimissionService.reject(user, dimission);
+        return reject;
+    }
+
+    //批准离职请求
+    @PostMapping("ratify")
+    public CommonsResult ratify(@RequestBody Dimission dimission,HttpSession session,ModelMap modelMap)throws ParseException {
+        User user =(User)modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
+        CommonsResult reject = this.dimissionService.ratify(user,dimission);
+        return reject;
+    }
+
+    //管理员操作，显示所有人员列表
+    @GetMapping("showUser")
+    public CommonsResult showUser(){
+        List<User> users = this.userService.showUser();
+        return new CommonsResult(200,"操作成功",users);
     }
 }

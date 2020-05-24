@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newer.dao.DimissionDaoMapper;
 import com.newer.dao.TaskMapper;
+import com.newer.dao.UserDaoMapper;
 import com.newer.domain.Attendance;
 import com.newer.domain.Dimission;
 import com.newer.domain.Task;
@@ -29,6 +30,8 @@ public class DimissionServiceImpl implements DimissionService{
     private DimissionDaoMapper daoMapper;
     @Autowired
     private TaskMapper taskMapper;
+    @Autowired
+    private UserDaoMapper userDaoMapper;
 
     @Override
     @Transactional
@@ -57,10 +60,64 @@ public class DimissionServiceImpl implements DimissionService{
 
     @Override
     public PageInfo showDimission(User user,PageDto pageDto) {
-        System.out.println("service:"+user+"===="+pageDto);
         PageHelper.startPage(pageDto.getPage(), pageDto.getPageSize());
         List list = this.daoMapper.showDimission(user);
         PageInfo pageInfo = new PageInfo<Dimission>(list);
         return pageInfo;
+    }
+
+    //驳回离职请求
+    @Override
+    public CommonsResult reject(User user, Dimission dimission) {
+        if("经理".equals(user.getDescription())){
+            dimission.setState("驳回");
+            dimission.setFinal1("驳回");
+            dimission.setFinalId(user.getUserid());
+            dimission.setStateId(user.getUserid());
+            int i = this.daoMapper.updateByPrimaryKeySelective(dimission);
+            return i>0?new CommonsResult(200,"操作成功",null):new CommonsResult(500,"发生未知错误，请稍后再试。。。",null);
+        }
+            dimission.setFinal1("驳回");
+            dimission.setFinalId(user.getUserid());
+            int i = this.daoMapper.updateByPrimaryKeySelective(dimission);
+            return i>0?new CommonsResult(200,"操作成功",null):new CommonsResult(500,"发生未知错误，请稍后再试。。。",null);
+    }
+
+    @Override
+    @Transactional
+    public CommonsResult ratify(User user,Dimission dimission){
+        try {
+            if ("经理".equals(user.getDescription())){
+                dimission.setState("批准");
+                dimission.setStateId(user.getUserid());
+                int i = this.daoMapper.updateByPrimaryKeySelective(dimission);
+                return i>0?new CommonsResult(200,"操作成功",null):new CommonsResult(500,"操作失败",null);
+            }
+            dimission.setFinal1("批准");
+            dimission.setFinalId(user.getUserid());
+            int i = this.daoMapper.updateByPrimaryKeySelective(dimission);
+            if (i>0){
+                User user1 = this.userDaoMapper.selectByPrimaryKey(dimission.getUserid());
+                user1.setDeletestatus(1);
+                int i1 = this.userDaoMapper.updateByPrimaryKey(user1);
+                //得到离职人员的下级员工，如果不为空则将其上级ID修改为null
+                Example example=new Example(User.class);
+                Example.Criteria criteria=example.createCriteria();
+                criteria.andEqualTo("upno",user1.getUserid());
+                List<User> users = this.userDaoMapper.selectByExample(example);
+                if (users!=null){
+                    for (User user2:users){
+                        user2.setUpno(null);
+                        int i2 = this.userDaoMapper.updateByPrimaryKey(user2);
+                        System.out.println(i2);
+                    }
+                }
+                return i1>0?new CommonsResult(200,"操作成功",null):new CommonsResult(500,"操作失败",null);
+            }
+            return new CommonsResult(500,"未知错误，请稍后再试。。。",null);
+        } catch (Exception e) {
+            return new CommonsResult(500,"操作失败",null);
+        }
+
     }
 }
