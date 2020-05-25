@@ -42,4 +42,13 @@ public class AfficheServiceImpl implements AfficheService {
     public boolean saveAffiche(Affiche affiche) {
         return this.afficheMapper.insert(affiche) > 0 ? true : false;
     }
+    @Override
+    public List<Affiche> findAfficheByDate() {
+        List list=this.afficheMapper.findAfficheByDate();
+
+        if(list!=null)
+            return list;
+        return null;
+    }
 }
+

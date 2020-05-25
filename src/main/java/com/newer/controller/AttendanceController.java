@@ -7,10 +7,11 @@ import com.newer.service.AttendanceService;
 import com.newer.service.impl.AttendanceServiceImpl;
 import com.newer.util.CommonsResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping("attendance")
@@ -49,38 +50,74 @@ public class AttendanceController {
         return new CommonsResult(200,"任务分页",pageInfo);
     }
 
-    //删除s
-    @GetMapping("delete")
-    public CommonsResult doDelete(@RequestBody Integer id){
-        int tag=this.abstractServiceimpl.delete(id);
-        if (tag>0){
-            return new CommonsResult(200,"删除考勤成功",id);
-        }
-        return new CommonsResult(200,"删除考勤失败",null);
-    }
-
-
 
     //创建考勤表
-    @GetMapping("save")
+    @PostMapping("save")
     public CommonsResult doSave(@RequestBody Attendance abttendance){
-
+        SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date1=new Date();
+        abttendance.setMorninghours(date1);
+        Date date2 =null;
+        String str1=sdf1.format(date1)+" 09:00:00";
+        try {
+            date2=sdf2.parse(str1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //after开始时间在结束时间之后true
+        if(abttendance.getMorninghours().after(date2)){
+            abttendance.setClockinstate("迟到");
+        }else{
+            abttendance.setClockinstate("正常");
+        }
+//        System.out.println("abttendance="+abttendance);
         int a=this.abstractServiceimpl.sava(abttendance);
         if(a>0){
-            return  new CommonsResult(200,"打卡成功",abttendance);
+            return  new CommonsResult(200,"上班打卡成功",abttendance);
         }
-        return  new CommonsResult(200,"打卡有误",null);
+        return  new CommonsResult(200,"上班打卡失败，请再次尝试",null);
     }
     //修改考勤表
-    @GetMapping("update")
+    @PostMapping("update")
     public CommonsResult doUpdate(@RequestBody Attendance abttendance){
-        int a=this.abstractServiceimpl.update(abttendance);
-        if(a>0){
-            return  new CommonsResult(200,"修改成功",abttendance);
+        SimpleDateFormat sdf1=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date date1=new Date();
+        abttendance.setAfternoonclosingtime(date1);
+        Date date2 =null;
+
+        String str1=sdf1.format(date1)+" 17:00:00";
+        try {
+            date2=sdf2.parse(str1);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        return  new CommonsResult(200,"修改有误",null);
+        //before开始时间在结束时间之前true
+        if(abttendance.getAfternoonclosingtime().before(date2)){
+            abttendance.setClockoutstate("早退");
+        }else{
+            abttendance.setClockoutstate("正常");
+        }
+        int a=this.abstractServiceimpl.update(abttendance);
+//        System.out.println("aaaaaaaaaaaaaaaaa");
+        if(a>0){
+            return  new CommonsResult(200,"下班打卡成功",abttendance);
+        }
+        return  new CommonsResult(500,"下班打卡失败，请再次尝试",null);
     }
 
+    @GetMapping("findAttendanceByUserId")
+    public CommonsResult findAttendanceByUserId(Integer userid){
+
+        Attendance attendance=this.abstractServiceimpl.findAttendanceByUserId(userid);
+
+        if(attendance!=null){
+            return  new CommonsResult(200,"今日已上班打卡",attendance);
+        }
+        return  new CommonsResult(500,"今日还未上班打卡，请打卡",null);
+    }
 
 }
 

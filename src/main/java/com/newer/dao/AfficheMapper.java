@@ -1,4 +1,5 @@
-package com.newer.dao;
+
+        package com.newer.dao;
 
 import com.newer.domain.Affiche;
 import org.apache.ibatis.annotations.One;
@@ -12,10 +13,26 @@ import java.util.List;
 
 public interface AfficheMapper extends Mapper<Affiche> {
 
-    @Results({
-            @Result(column = "userid",property = "userid"),
-        @Result(column = "username",property = "user.username")
-            })
-    @Select("select a.*,b.username from t_affiche a,t_tree_user b where a.userid=b.userid and b.userid=#{userid}")
-    public List<Affiche> findAffiches(Integer userid);
+    @Results(id = "afficheMap",value = {
+            @Result(column = "affiche_id",property = "afficheid"),
+            @Result(column = "userid", property = "userid"),
+            @Result(column = "userid", property = "user.userid"),
+            @Result(column = "affiche_content", property = "affichecontent"),
+            @Result(column = "realname", property = "user.realname"),
+            @Result(column = "description", property = "user.description")
+    })
+    @Select("select a.*,b.realname,b.description from t_affiche a,t_tree_user b where a.userid=b.userid and b.userid=#{userid} order by a.releasetime desc")
+    List<Affiche> findAffiches(Integer userid);
+
+    @Results( {
+            @Result(column = "affiche_id",property = "afficheid"),
+            @Result(column = "userid", property = "userid"),
+            @Result(column = "userid", property = "user.userid"),
+            @Result(column = "affiche_content", property = "affichecontent"),
+            @Result(column = "realname", property = "user.realname"),
+            @Result(column = "description", property = "user.description")
+    })
+    @Select("select a.*,b.realname,b.description from t_affiche a,t_tree_user b where a.userid=b.userid and a.releasetime like sysdate")
+    List<Affiche> findAfficheByDate();
 }
+

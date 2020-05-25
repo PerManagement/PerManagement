@@ -1,4 +1,5 @@
-package com.newer.controller;
+
+        package com.newer.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.newer.domain.Affiche;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 公告模块控制层
@@ -40,7 +42,9 @@ public class AfficheController {
         afficheDto.setPageSize(pageSize);
         System.out.println(afficheDto.getUserid());
         PageInfo<Affiche> pageInfo=this.afficheService.findAffiches(afficheDto);
-        return new CommonsResult(200, "公告列表", pageInfo);
+        if(pageInfo!=null)
+            return new CommonsResult(200, "公告列表", pageInfo);
+        return new CommonsResult(500, "今日暂无通告", pageInfo);
     }
 
     @PostMapping("saveAffiche")
@@ -52,5 +56,14 @@ public class AfficheController {
         return new CommonsResult(500, "公告发布失败", null);
     }
 
+    @GetMapping("findAfficheByDate")
+    public CommonsResult findAfficheByDate(){
+        List list= this.afficheService.findAfficheByDate();
+
+        if(list!=null)
+            return new CommonsResult(200, "登录通告显示", list);
+        return new CommonsResult(500, "今日无通告", null);
+    }
 
 }
+

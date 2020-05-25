@@ -10,4 +10,5 @@ public interface AttendanceService {
     public int update(Attendance attendance);
     public PageInfo<Attendance> findAll(PageDto dto);
     public Attendance findAttendancebyid(Integer id);
+    public Attendance findAttendanceByUserId(Integer userid);
 }
