@@ -120,4 +120,10 @@ public class DimissionServiceImpl implements DimissionService{
         }
 
     }
+
+    @Override
+    public CommonsResult updateDimission(Dimission dimission) {
+        int count=this.daoMapper.updateByPrimaryKeySelective(dimission);
+        return count>0?new CommonsResult(200,"修改成功",true):new CommonsResult(500,"修改失败",false);
+    }
 }

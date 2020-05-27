@@ -27,4 +27,6 @@ public interface TaskService {
     public List<Task> findTaskByUserid(Integer userId);
 
     public List<Task> checkTask(Integer id);
+
+    public List<Task> dimHandover(Integer userid);
 }

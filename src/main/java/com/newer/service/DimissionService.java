@@ -17,4 +17,5 @@ public interface DimissionService {
     public PageInfo showDimission(User user,PageDto pageDto);
     public  CommonsResult reject(User user,Dimission dimission);
     public  CommonsResult ratify(User user,Dimission dimission);
+    public CommonsResult updateDimission(Dimission dimission);
 }

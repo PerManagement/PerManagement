@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,4 +32,6 @@ public class TaskDetailDto {
     public Integer sharer;
     public String taskdesc;
     private Integer executant;
+    @Column(name = "DMISSION_ID")
+    private Integer dmissionId;
 }

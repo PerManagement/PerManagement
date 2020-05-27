@@ -1,6 +1,7 @@
 package com.newer.service;
 
 import com.newer.domain.User;
+import com.newer.util.CommonsResult;
 
 import java.util.List;
 
@@ -19,5 +20,7 @@ public interface UserService {
 
     //管理员查询所有员工
     public List<User> showUser();
+
+    public CommonsResult save(User user);
 
 }

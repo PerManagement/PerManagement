@@ -46,6 +46,10 @@ public interface TaskMapper extends Mapper<Task> {
     @ResultMap("TMap")
     @Select("select * from t_pro_task a,t_tree_user b where a.userid=b.userid and description='员工' and status='已完成' and upno=#{id}")
     List<Task> checkTask(Integer id);
+
+    @ResultMap("TMap")
+    @Select("select * from t_pro_task a,t_pro_dimission b,t_tree_user c where a.userid=b.userid and a.userid=c.userid and exist_task='是' and b.userid=#{userid}")
+    List<Task> dimHandover(Integer userid);
 //    List<Task> findTaskByUserId(@Param("taskByUserIdDto")TaskByUserIdDto taskByUserIdDto);
 
 //    @Results({

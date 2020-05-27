@@ -3,6 +3,7 @@ package com.newer.service.impl;
 import com.newer.dao.UserDaoMapper;
 import com.newer.domain.User;
 import com.newer.service.UserService;
+import com.newer.util.CommonsResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -44,5 +45,11 @@ public class UserServiceImpl implements UserService {
         List<User> users = this.dao.showUser();
         return users;
 
+    }
+
+    @Override
+    public CommonsResult save(User user) {
+        int count=this.dao.insertSelective(user);
+        return count>0?new CommonsResult(200,"添加员工成功",true):new CommonsResult(500,"添加员工失败",false);
     }
 }
