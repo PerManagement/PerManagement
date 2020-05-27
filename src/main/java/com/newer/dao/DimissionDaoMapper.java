@@ -18,6 +18,7 @@ import java.util.List;
 public interface DimissionDaoMapper extends Mapper<Dimission> {
 
     @Results({
+            @Result(column = "userid",property = "user.userid"),
             @Result(column = "username",property = "user.username"),
             @Result(column = "dmission_id",property = "dmissionId"),
             @Result(column = "dim_date",property = "dimDate"),

@@ -57,6 +57,7 @@ public class TaskServiceImpl implements TaskService {
         return this.taskMapper.updateByPrimaryKeySelective(task)>0?true:false;
     }
 
+
     @Override
     public PageInfo<Task> findTask(@Param("taskDto")TaskDto taskDto) {
         PageHelper.startPage(taskDto.getPage(), taskDto.getPageSize());
@@ -106,6 +107,11 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> checkTask(Integer id) {
         return this.taskMapper.checkTask(id);
+    }
+
+    @Override
+    public List<Task> dimHandover(Integer userid) {
+        return this.taskMapper.dimHandover(userid);
     }
 
 //    @Override

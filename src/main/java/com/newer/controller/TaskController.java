@@ -92,7 +92,6 @@ public class TaskController {
 
     @PostMapping("handover")
     public CommonsResult handover(@RequestBody TaskDetailDto taskDetailDto){
-        System.out.println("DTO:"+taskDetailDto);
         Task task=new Task();
         task.getTaskDetail().setExecutant(taskDetailDto.getExecutant());
         task.getTaskDetail().setHandover(taskDetailDto.getUserid());
@@ -103,6 +102,7 @@ public class TaskController {
         task.setBegindate(taskDetailDto.getBegindate());
         task.setEnddate(taskDetailDto.getEnddate());
         task.setTaskdesc(taskDetailDto.getTaskdesc());
+        task.setUserid(taskDetailDto.getUserid());
         boolean tag=this.taskService.handover(task);
         if (tag){
             return new CommonsResult(200,"任务交接成功",taskDetailDto);
@@ -139,5 +139,35 @@ public class TaskController {
             return new CommonsResult(200,"此任务未通过审核",task);
         }
         return new CommonsResult(500,"此任务修改审核失败",null);
+    }
+
+    @GetMapping("dimHandover")
+    public CommonsResult dimHandover(Integer userid) {
+        List list=this.taskService.dimHandover(userid);
+        return new CommonsResult(200,"查询要离职员工未完成的任务",list);
+    }
+
+    @PostMapping("handover1")
+    public CommonsResult handover1(@RequestBody TaskDetailDto taskDetailDto){
+        Task task=new Task();
+        task.getTaskDetail().setExecutant(taskDetailDto.getExecutant());
+        task.getTaskDetail().setHandover(taskDetailDto.getUserid());
+        task.setTaskid(taskDetailDto.getTaskid());
+        task.setSharer(taskDetailDto.getSharer());
+        task.setTaskname(taskDetailDto.getTaskname());
+        task.setStatus(taskDetailDto.getStatus());
+        task.setBegindate(taskDetailDto.getBegindate());
+        task.setEnddate(taskDetailDto.getEnddate());
+        task.setTaskdesc(taskDetailDto.getTaskdesc());
+        task.setUserid(taskDetailDto.getUserid());
+        boolean tag=this.taskService.handover(task);
+        if (tag){
+            List list=this.taskService.dimHandover(taskDetailDto.getUserid());
+            if(list.size()<=0){
+
+            }
+            return new CommonsResult(200,"任务交接成功",taskDetailDto);
+        }
+        return new CommonsResult(500,"任务交接失败",null);
     }
 }
