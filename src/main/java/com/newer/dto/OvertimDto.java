@@ -22,7 +22,6 @@ public class OvertimDto extends PageDto{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID .nextval from dual")
     private Integer overtimID;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    private Data overtimedate;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 //    private Data  stoPovertime;
