@@ -17,16 +17,17 @@ import java.math.BigDecimal;
 @Table(name="t_overtim")
 public class OvertimDto extends PageDto{
     private Integer upno;
+    private Integer userid;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select seq_t_overtim_overtimID .nextval from dual")
     private Integer overtimID;
-    private Integer userid;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data overtimedate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data  stoPovertime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Data  overtimedated;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private Data overtimedate;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private Data  stoPovertime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private Data  overtimedated;
     private  String overtimstate;
     private  String overtimReason ;
     private Integer  approver;

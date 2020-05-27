@@ -18,7 +18,6 @@ public class OvertimController {
 
     @PostMapping("saveOvertim")
     public CommonsResult saveOvertim(@RequestBody Overtim overtim) {
-//        System.out.println("overtim=="+overtim);
         overtim.setOvertimedated(new Date());
         overtim.setOvertimtype("待审批");
         if (this.overtimService.saveOvertim(overtim))
@@ -28,23 +27,31 @@ public class OvertimController {
 
     @PostMapping("findOvertimByUpno")
     public CommonsResult findOvertimByUpno(@RequestBody OvertimDto overtimDto) {
-
-//        System.out.println("dto=="+overtimDto);
-
         PageInfo<Overtim> pageInfo = this.overtimService.findOvertimByUpon(overtimDto);
         if(pageInfo!=null)
             return new CommonsResult(200, "请假申请成功", pageInfo );
         return new CommonsResult(500, "请假申请失败，请尝试再次申请", null);
     }
 
-    @GetMapping("findOvertimByKey")
-    public CommonsResult findOvertimByKey(Integer overtimid) {
+    @PostMapping("findOvertimByUserId")
+    public CommonsResult findOvertimByUserId(@RequestBody OvertimDto overtimDto) {
 
-        System.out.println("overtimid=="+overtimid);
-        Overtim overtim=this.overtimService.findOvertimByKey(overtimid);
+        System.out.println("dto=="+overtimDto);
 
-        if(overtim!=null)
-            return new CommonsResult(200, "查看详情", overtimid );
-        return new CommonsResult(500, "查看详情失败，请再次尝试", null);
+        PageInfo<Overtim> pageInfo = this.overtimService.findOvertimByUserId(overtimDto);
+        if(pageInfo!=null)
+            return new CommonsResult(200, "请假申请成功", pageInfo );
+        return new CommonsResult(500, "请假申请失败，请尝试再次申请", null);
     }
+
+//    @GetMapping("findOvertimByKey")
+//    public CommonsResult findOvertimByKey(Integer overtimid) {
+//
+//        System.out.println("overtimid=="+overtimid);
+//        Overtim overtim=this.overtimService.findOvertimByKey(overtimid);
+//
+//        if(overtim!=null)
+//            return new CommonsResult(200, "查看详情", overtimid );
+//        return new CommonsResult(500, "查看详情失败，请再次尝试", null);
+//    }
 }

@@ -24,15 +24,8 @@ public class OvertimServiceImpl implements OvertimService {
 
     @Override
     public PageInfo findOvertimByUpon(OvertimDto overtimDto) {
-
         PageHelper.startPage(overtimDto.getPage(), overtimDto.getPageSize());
-
         List list = this.overtimMapper.findOvertimByUpno(overtimDto.getUpno());
-
-//        for (Object obj:list){
-//            System.out.println(obj);
-//        }
-
         PageInfo<Overtim> pageInfo = new PageInfo<Overtim>(list);
         return pageInfo;
     }
@@ -40,5 +33,13 @@ public class OvertimServiceImpl implements OvertimService {
     @Override
     public Overtim findOvertimByKey(Integer overtimid) {
         return this.overtimMapper.findOvertimByKey(overtimid);
+    }
+
+    @Override
+    public PageInfo findOvertimByUserId(OvertimDto overtimDto) {
+        PageHelper.startPage(overtimDto.getPage(), overtimDto.getPageSize());
+        List list = this.overtimMapper.findOvertimByUserId(overtimDto.getUserid());
+        PageInfo<Overtim> pageInfo = new PageInfo<Overtim>(list);
+        return pageInfo;
     }
 }
