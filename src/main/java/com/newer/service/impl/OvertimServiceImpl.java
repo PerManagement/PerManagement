@@ -42,4 +42,9 @@ public class OvertimServiceImpl implements OvertimService {
         PageInfo<Overtim> pageInfo = new PageInfo<Overtim>(list);
         return pageInfo;
     }
+
+    @Override
+    public boolean updateOvertimByUpno(Overtim overtim) {
+        return this.overtimMapper.updateByPrimaryKeySelective(overtim)>0?true:false;
+    }
 }

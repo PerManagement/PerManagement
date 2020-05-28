@@ -44,6 +44,22 @@ public class OvertimController {
         return new CommonsResult(500, "请假申请失败，请尝试再次申请", null);
     }
 
+    @PostMapping("updateOvertimByUpno")
+    public CommonsResult updateOvertimByUpno(@RequestBody Overtim form) {
+        System.out.println("overtim=="+form);
+        switch (form.getOvertimstate()){
+            case "同意":form.setOvertimtype("待确认");
+                break;
+            case "需修改":form.setOvertimtype("待修改");
+                break;
+            case "不同意":form.setOvertimtype("已完成");
+                break;
+        }
+
+        if(this.overtimService.updateOvertimByUpno(form))
+            return new CommonsResult(200, "审批成功", form );
+        return new CommonsResult(500, "审批失败，请再次尝试", null);
+    }
 //    @GetMapping("findOvertimByKey")
 //    public CommonsResult findOvertimByKey(Integer overtimid) {
 //

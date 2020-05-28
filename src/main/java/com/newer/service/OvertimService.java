@@ -11,4 +11,5 @@ public interface OvertimService {
     public PageInfo findOvertimByUpon(OvertimDto overtimDto);
     public Overtim findOvertimByKey(Integer overtimid);
     public PageInfo findOvertimByUserId(OvertimDto overtimDto);
+    public boolean updateOvertimByUpno(Overtim overtim);
 }
