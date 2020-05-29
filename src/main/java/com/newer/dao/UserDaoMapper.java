@@ -42,4 +42,7 @@ public interface UserDaoMapper extends Mapper<User> {
             @Result(column = "deptname",property = "department.deptname")
     })
     public List<User> showUser();
+
+    @Select("select * from t_tree_user where description='经理' and deptid=#{deptid}")
+    public List<User> findDeptMager(Integer deptid);//查询部门经理
 }

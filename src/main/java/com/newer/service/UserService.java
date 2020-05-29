@@ -23,4 +23,6 @@ public interface UserService {
 
     public CommonsResult save(User user);
 
+    public List<User> findDeptMager(Integer deptid);//查询部门经理
+
 }

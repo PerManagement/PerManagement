@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +24,7 @@ import java.util.List;
 @Data
 public class User{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = " select seq_user_userid.nextval from dual ")
     private Integer userid;
     private String username;
     private String password;
@@ -30,7 +34,7 @@ public class User{
     private String description;
     private Integer locked;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String createtime;
+    private Date createtime;
     private Integer deletestatus;
     private String sex;
     private Integer age;
@@ -42,7 +46,7 @@ public class User{
     private String area;
     private String address;
     private Integer upno;
-    private Integer deptno;
+    private Integer deptid;
     private List<UserRole> userRoles;
-
+    protected
 }
