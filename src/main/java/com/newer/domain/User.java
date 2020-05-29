@@ -48,5 +48,4 @@ public class User{
     private Integer upno;
     private Integer deptid;
     private List<UserRole> userRoles;
-    protected
 }
