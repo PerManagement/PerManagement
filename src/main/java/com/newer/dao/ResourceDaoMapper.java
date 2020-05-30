@@ -13,6 +13,6 @@ import java.util.List;
 public interface ResourceDaoMapper extends Mapper<Resource> {
 
     //tree树形结构
-    @Select("select * from t_tree_resource start with id=#{id} connect by prior id = pid")
+    @Select("select * from t_tree_resource start with id in (select id from t_tree_resource where pid is null) connect by prior id = pid")
     List<Resource> tree(Integer id);
 }

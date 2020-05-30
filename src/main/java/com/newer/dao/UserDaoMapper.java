@@ -1,6 +1,7 @@
 package com.newer.dao;
 
 import com.newer.domain.User;
+import com.newer.dto.UserDto;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -43,6 +44,11 @@ public interface UserDaoMapper extends Mapper<User> {
     })
     public List<User> showUser();
 
+
     @Select("select * from t_tree_user where description='经理' and deptid=#{deptid}")
     public List<User> findDeptMager(Integer deptid);//查询部门经理
+
+    @Select(" select a.*,b.realname upnoname from (select distinct a.*,nvl(b.taskname,'否') istask from (select a.*,b.deptname from t_tree_user a,t_department b where a.deptid=b.deptid and a.deletestatus=0)a left join t_pro_task b on a.userid=b.userid and b.status!='已完成') a left join t_tree_user b on a.upno=b.userid ")
+    public List<UserDto> findUserTaskDept();
+
 }
