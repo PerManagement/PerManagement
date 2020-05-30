@@ -81,9 +81,9 @@
             <version>4.2.1</version>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>com.github.pagehelper</groupId>-->
-            <!--<artifactId>pagehelper-spring-boot-autoconfigure</artifactId>-->
-            <!--<version>1.2.5</version>-->
+        <!--<groupId>com.github.pagehelper</groupId>-->
+        <!--<artifactId>pagehelper-spring-boot-autoconfigure</artifactId>-->
+        <!--<version>1.2.5</version>-->
         <!--</dependency>-->
 
 
@@ -102,8 +102,8 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
         <!--</dependency>-->
 
         <!--&lt;!&ndash; oracle的驱动包 &ndash;&gt;-->
