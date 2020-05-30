@@ -71,4 +71,11 @@ public class OvertimController {
             return new CommonsResult(200, "申请已完成", form);
         return new CommonsResult(500, "操作失败，请再次尝试", null);
     }
+    @PostMapping("updateOvertimByOvertimId")
+    public CommonsResult updateOvertimByOvertimId(@RequestBody Overtim form) {
+        form.setOvertimtype("已完成");
+        if (this.overtimService.updateOvertimByUpno(form))
+            return new CommonsResult(200, "申请已完成", form);
+        return new CommonsResult(500, "操作失败，请再次尝试", null);
+    }
 }
