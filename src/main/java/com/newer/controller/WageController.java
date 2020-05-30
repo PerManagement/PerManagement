@@ -75,8 +75,9 @@ public class WageController {
 
     //发放薪资
     @GetMapping("updateState3")
-    public CommonsResult updateState3(@RequestParam Integer wageid, BigDecimal netPayroll){
-        int a=this.wageServiceImpl.updateState3(wageid,netPayroll);
+    public CommonsResult updateState3(@RequestParam Integer wageid, double netPayroll){
+        BigDecimal bd=new BigDecimal(netPayroll);
+        int a=this.wageServiceImpl.updateState3(wageid,bd);
         if(a>0){
             return  new CommonsResult(200,"再次申请成功",a);
         }
