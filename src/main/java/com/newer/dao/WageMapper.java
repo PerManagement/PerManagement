@@ -21,13 +21,13 @@ public interface WageMapper extends Mapper<Wage> {
             " (select a.*,d.username uname,d.basepay,c.deptname,b.subsidy,b.carallwance,b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,\n" +
             "b.unemploymentinsurance,b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,welfare b,t_department c,t_tree_user d \n" +
             "where a.welfareid=b.welfareid and c.deptid=a.deptid and d.userid=a.userid   and issuestate='未发放')a left join \n" +
-            "(select e.userid as attendance_userid,count(e.remark)*20 belated \n" +
+            "(select e.userid as attendance_userid,count(e.clockinstate)*20 belated \n" +
             "            from(select a.*,d.username uname,c.deptname,b.subsidy,b.carallwance,\n" +
             "            b.housingsubsidy,b.medicallnsuranc,b.endowmentinsurance,b.unemploymentinsurance,\n" +
             "            b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a,\n" +
             "           welfare b,t_department c,t_tree_user d where a.welfareid=b.welfareid and \n" +
             "            c.deptid=a.deptid and d.userid=a.userid and issuestate='未发放')a,t_attendance e \n" +
-            "            where a.userid=e.userid and e.remark='迟到了' group by e.userid) b on \n" +
+            "            where a.userid=e.userid and e.clockinstate='迟到' group by e.userid) b on \n" +
             "            a.userid=b.attendance_userid left join (select sum(total) evectionAccount,userid evection_userid from \n" +
             "            t_evectionAccount a,t_evection b where a.evectionid=b.evectionid group by \n" +
             "            b.userid)c on a.userid=c.evection_userid left join (select count(remark) overtim,userid overtim_userid\n" +
@@ -58,7 +58,7 @@ public interface WageMapper extends Mapper<Wage> {
             @Result(column = "evection_userid",property = "evection.userid"),
             @Result(column = "evectionid",property = "evectionaccount.evectionid"),
             @Result(column = "evectionaccount",property = "evectionaccount.total"),
-            @Result(column = "belated",property = "attendance.remark"),
+            @Result(column = "belated",property = "attendance.clockinstate"),
             @Result(column = "attendance_userid",property = "attendance.userid"),
             @Result(column = "leave_userid",property = "leave.userid"),
             @Result(column = "leavesal",property = "leave.duration"),
@@ -77,7 +77,7 @@ public interface WageMapper extends Mapper<Wage> {
             "b.birthinsurance,b.employmentinjuryinsurance,b.reservedfunds from t_wage a, " +
             "welfare b,t_department c,t_tree_user d where a.welfareid=b.welfareid and \n" +
             "c.deptid=a.deptid and d.userid=a.userid and wageState='未审核')a,t_attendance e \n" +
-            " where a.userid=e.userid and e.clockinstate='迟到了' group by e.userid) b on \n" +
+            " where a.userid=e.userid and e.clockinstate='迟到' group by e.userid) b on \n" +
             "a.userid=b.attendance_userid left join (select sum(total) evectionAccount,userid evection_userid from \n" +
             "t_evectionAccount a,t_evection b where a.evectionid=b.evectionid group by \n" +
             "b.userid)c on a.userid=c.evection_userid left join (select count(remark) overtim,userid overtim_userid " +
@@ -107,7 +107,7 @@ public interface WageMapper extends Mapper<Wage> {
             @Result(column = "userid",property = "evection.userid"),
             @Result(column = "evectionid",property = "evectionAccount.evectionid"),
             @Result(column = "evectionaccount",property = "evectionaccount.total"),
-            @Result(column = "belated",property = "attendance.remark"),
+            @Result(column = "belated",property = "attendance.clockinstate"),
             @Result(column = "userid",property = "attendance.userid"),
             @Result(column = "leave_userid",property = "leave.userid"),
             @Result(column = "leavesal",property = "leave.duration"),
