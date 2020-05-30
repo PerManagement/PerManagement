@@ -31,6 +31,11 @@ public interface OvertimMapper extends Mapper<Overtim> {
 
     @ResultMap("OvertimMap")
     @Select("select b.*,a.realname from t_tree_user a,t_overtim b " +
-            "where a.userid=b.userid and b.overtimid=#{overtimid}")
+            " where a.userid=b.userid and b.overtimid=#{overtimid}")
     Overtim findOvertimByKey(Integer overtimid);
+
+    @ResultMap("OvertimMap")
+    @Select("select b.*,a.realname from t_tree_user a,t_overtim b " +
+            " where a.userid=b.userid and b.userid=#{userid}")
+    List<Overtim> findOvertimByUserId(Integer userid);
 }

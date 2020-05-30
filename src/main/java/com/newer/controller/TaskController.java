@@ -174,6 +174,7 @@ public class TaskController {
                 dimission.setHeir(taskDetailDto.getUserid());
                 CommonsResult commonsResult = this.dimissionService.updateDimission(dimission);
                 return commonsResult;
+
             }
             return new CommonsResult(200,"任务交接成功",taskDetailDto);
         }
