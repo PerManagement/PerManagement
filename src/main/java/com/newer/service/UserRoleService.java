@@ -1,6 +1,7 @@
 package com.newer.service;
 
 import com.newer.domain.UserRole;
+import com.newer.util.CommonsResult;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ import java.util.List;
  */
 public interface UserRoleService {
     public List<UserRole> getUserRolebyUserId(Integer id);
+
+    public CommonsResult insert(Integer userid,Integer id);
 }

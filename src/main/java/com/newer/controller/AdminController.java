@@ -1,12 +1,13 @@
 package com.newer.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.newer.domain.Dimission;
-import com.newer.domain.Resource;
-import com.newer.domain.User;
+import com.newer.domain.*;
 import com.newer.dto.PageDto;
+import com.newer.dto.UpdatePowerDto;
+import com.newer.dto.UserDto;
 import com.newer.service.DimissionService;
 import com.newer.service.ResourceService;
+import com.newer.service.UserRoleService;
 import com.newer.service.UserService;
 import com.newer.util.CommonsResult;
 import com.newer.util.Sessions;
@@ -18,8 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Create by 何辉
@@ -35,6 +35,8 @@ public class AdminController {
     private DimissionService dimissionService;
 @Autowired
 private UserService userService;
+@Autowired
+private UserRoleService userRoleService;
 
     //树形结构查询
     @GetMapping("tree")
@@ -53,7 +55,6 @@ private UserService userService;
         String format = simpleDateFormat.format(new Date(System.currentTimeMillis()));
         dimission.setDimDate(simpleDateFormat.parse(format));
         dimission.setPosition(user.getDescription());
-
         CommonsResult commonsResult = this.dimissionService.addDimission(dimission);
         return commonsResult;
     }
@@ -87,5 +88,59 @@ private UserService userService;
     public CommonsResult showUser(){
         List<User> users = this.userService.showUser();
         return new CommonsResult(200,"操作成功",users);
+    }
+
+    @PostMapping("updateLocked")
+    public CommonsResult updateLocked(@RequestBody User user){
+        CommonsResult<User> userCommonsResult = this.userService.updateLocked(user);
+        return userCommonsResult;
+    }
+
+
+    @GetMapping("showRoleResource")
+    public CommonsResult showRoleResource(Integer userid){
+        List<UserRole> userRolebyUserId = this.userRoleService.getUserRolebyUserId(userid);
+        HashSet<Integer> set=new HashSet<Integer>();
+        for (UserRole userRole:userRolebyUserId){
+            for(Role role:userRole.getRoles()){
+                for (RoleResource roleResource:role.getRoleResources()){
+                    for (Resource resource:roleResource.getResources()){
+                        if(resource.getResourcecode()!=null){
+                            set.add(resource.getId());
+                        }
+                    }
+                }
+            }
+        }
+        return new CommonsResult(200,"操作成功",set);
+    }
+
+    @PostMapping("updatePower")
+    public CommonsResult updatePower(@RequestBody UpdatePowerDto updatePowerDto){
+        System.out.println(updatePowerDto);
+
+        for(int i=0;i<updatePowerDto.getIntegers().length;i++){
+            this.userRoleService.insert(updatePowerDto.getUserid(),updatePowerDto.getIntegers()[i]);
+        }
+        return new CommonsResult(200,"操作成功",null);
+    }
+
+    @GetMapping("findUserTaskDept")
+    public CommonsResult findUserTaskDept(){
+        List<UserDto> userTaskDept = this.userService.findUserTaskDept();
+        return new CommonsResult(200,"操作成功",userTaskDept);
+    }
+
+    @PostMapping("updateUser")
+    public CommonsResult updateUser(@RequestBody User user){
+        System.out.println(user);
+        CommonsResult commonsResult = this.userService.updateUser(user);
+        return commonsResult;
+    }
+
+    @GetMapping("showUpno")
+    public CommonsResult showUpno(Integer upno){
+        CommonsResult commonsResult = this.userService.showUpno(upno);
+        return commonsResult;
     }
 }
