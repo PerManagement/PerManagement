@@ -49,5 +49,6 @@ public class User{
     private Integer deptid;
 
 //    private Integer sjide;
+    private String title;
     private List<UserRole> userRoles;
 }

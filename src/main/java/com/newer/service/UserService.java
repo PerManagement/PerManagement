@@ -29,7 +29,6 @@ public interface UserService {
 
     public List<User> findDeptMager(Integer deptid);//查询部门经理
 
-
     public CommonsResult<User> updateLocked(User user);
 
     public List<UserDto> findUserTaskDept();
@@ -38,5 +37,6 @@ public interface UserService {
     public CommonsResult showUpno(Integer id);
 
     public CommonsResult updateUser(User user);
+    public int updateTitle(User user);
 
 }

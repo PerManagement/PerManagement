@@ -147,4 +147,10 @@ public class UserServiceImpl implements UserService {
         return i>0?new CommonsResult(200,"操作成功",null):new CommonsResult(200,"操作失败",null);
     }
 
+    @Override
+    public int updateTitle(User user) {
+        this.dao.updateByPrimaryKeySelective(user);
+        return 0;
+    }
+
 }

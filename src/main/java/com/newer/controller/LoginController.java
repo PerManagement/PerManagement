@@ -35,7 +35,6 @@ public class LoginController {
             System.out.println("登录成功！");
         }catch (AuthenticationException e){
             e.printStackTrace();
-
             System.out.println("登录失败！");
             String str=e.toString();
             System.out.println(str.substring(str.lastIndexOf(":")+2));
@@ -43,7 +42,6 @@ public class LoginController {
         }
         User user1=(User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         modelMap.put(Sessions.SESSION_LOGIN_USER,user1);
-        System.out.println("存储之前:"+user1);
         return new CommonsResult(200,"登录成功",user1);
     }
 
