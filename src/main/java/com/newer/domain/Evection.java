@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 出差表周怡珊
@@ -19,13 +21,28 @@ public class Evection {
     public Integer  evectionid;
     public Integer userid;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Data evectiondate;
+    private Date evectiondate;
     private String evectionaddress;
     private String evectionreason ;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Data stoPevection;
+    private Date stopevection;
     private String evectionstate  ;
     public Integer  approver;
     private String  remark ;
+    private User user;
 
+    public String getEvectiondateString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(this.evectiondate!=null){
+            return sdf.format(this.evectiondate);
+        }
+        return null;
+    }
+    public String getStopevectionString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(this.stopevection!=null){
+            return sdf.format(this.stopevection);
+        }
+        return null;
+    }
 }
