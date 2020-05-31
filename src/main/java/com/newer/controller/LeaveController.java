@@ -54,7 +54,7 @@ public class LeaveController {
         User user = (User) modelMap.getAttribute(Sessions.SESSION_LOGIN_USER);
         System.out.println(user);
         leave.setApproval(user.getUpno());
-        leave.setApprover(user.getSjide());
+//        leave.setApprover(user.getSjide());
         leave.setUserid(user.getUserid());
         leave.setLeavestate(null);
         leave.setFinall(null);
