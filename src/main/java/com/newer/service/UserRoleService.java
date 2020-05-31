@@ -13,4 +13,6 @@ public interface UserRoleService {
     public List<UserRole> getUserRolebyUserId(Integer id);
 
     public CommonsResult insert(Integer userid,Integer id);
+
+    public int deleteId(Integer userid);
 }

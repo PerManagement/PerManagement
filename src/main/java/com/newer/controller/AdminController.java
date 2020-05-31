@@ -14,7 +14,11 @@ import com.newer.util.Sessions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import tk.mybatis.mapper.entity.Example;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -122,7 +126,7 @@ private UserRoleService userRoleService;
     @PostMapping("updatePower")
     public CommonsResult updatePower(@RequestBody UpdatePowerDto updatePowerDto){
         System.out.println(updatePowerDto);
-
+         this.userRoleService.deleteId(updatePowerDto.getUserid());
         for(int i=0;i<updatePowerDto.getIntegers().length;i++){
             this.userRoleService.insert(updatePowerDto.getUserid(),updatePowerDto.getIntegers()[i]);
         }
