@@ -96,5 +96,9 @@ public class UserServiceImpl implements UserService {
         return this.dao.findDeptMager(deptid);
     }
 
-
+    @Override
+    public int updateTitle(User user) {
+        this.dao.updateByPrimaryKeySelective(user);
+        return 0;
+    }
 }

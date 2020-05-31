@@ -25,4 +25,6 @@ public interface UserService {
 
     public List<User> findDeptMager(Integer deptid);//查询部门经理
 
+    public int updateTitle(User user);
+
 }
