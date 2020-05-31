@@ -1,9 +1,9 @@
 package com.newer.controller;
 
 import com.alibaba.druid.sql.visitor.functions.Substring;
+import com.newer.domain.*;
 import com.newer.util.CommonsResult;
 import com.newer.util.Sessions;
-import com.newer.domain.User;
 import com.newer.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,6 +14,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Create by 何辉
@@ -42,7 +44,20 @@ public class LoginController {
         }
         User user1=(User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         modelMap.put(Sessions.SESSION_LOGIN_USER,user1);
-        return new CommonsResult(200,"登录成功",user1);
+        HashMap<String,String> map=new HashMap();
+        for(UserRole userRole:user1.getUserRoles()){
+            for (Role role:userRole.getRoles()){
+                for (RoleResource roleResource:role.getRoleResources()){
+                    for (Resource resource:roleResource.getResources()){
+                        map.put(resource.getName(),resource.getName());
+                    }
+                }
+            }
+        }
+        ArrayList list=new ArrayList();
+        list.add(user1);
+        list.add(map);
+        return new CommonsResult(200,"登录成功",list);
     }
 
     @GetMapping("/hello")

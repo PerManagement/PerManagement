@@ -47,7 +47,7 @@ public class User{
     private String address;
     private Integer upno;
     private Integer deptid;
-
+    private Department department;
 //    private Integer sjide;
     private String title;
     private List<UserRole> userRoles;
