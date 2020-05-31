@@ -65,17 +65,19 @@ public class OvertimController {
     }
 
     @PostMapping("updateOvertimByOvertimtype")
-    public CommonsResult updateOvertimByOvertimtype(@RequestBody Overtim form) {
-        form.setOvertimtype("已完成");
-        if (this.overtimService.updateOvertimByUpno(form))
-            return new CommonsResult(200, "申请已完成", form);
+    public CommonsResult updateOvertimByOvertimtype(@RequestBody Overtim overtim) {
+        overtim.setOvertimtype("已完成");
+        if (this.overtimService.updateOvertimByUpno(overtim))
+            return new CommonsResult(200, "申请已完成", overtim);
         return new CommonsResult(500, "操作失败，请再次尝试", null);
     }
     @PostMapping("updateOvertimByOvertimId")
-    public CommonsResult updateOvertimByOvertimId(@RequestBody Overtim form) {
-        form.setOvertimtype("已完成");
-        if (this.overtimService.updateOvertimByUpno(form))
-            return new CommonsResult(200, "申请已完成", form);
-        return new CommonsResult(500, "操作失败，请再次尝试", null);
+    public CommonsResult updateOvertimByOvertimId(@RequestBody Overtim overtim) {
+
+        System.out.println("overtimbyid=="+overtim);
+        overtim.setOvertimtype("待审批");
+        if (this.overtimService.updateOvertimByOvertimId(overtim))
+            return new CommonsResult(200, "修改已完成", overtim);
+        return new CommonsResult(500, "修改失败，请再次尝试", null);
     }
 }

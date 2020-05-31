@@ -57,4 +57,9 @@ public class OvertimServiceImpl implements OvertimService {
     public boolean updateOvertimByKey(Overtim overtim) {
         return this.overtimMapper.updateByPrimaryKeySelective(overtim)>0?true:false;
     }
+
+    @Override
+    public boolean updateOvertimByOvertimId(Overtim overtim) {
+        return this.overtimMapper.updateByPrimaryKeySelective(overtim)>0?true:false;
+    }
 }

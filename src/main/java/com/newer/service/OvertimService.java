@@ -14,4 +14,5 @@ public interface OvertimService {
     public boolean updateOvertimByUpno(Overtim overtim);
     public boolean updateOvertimByOvertimtype(Overtim overtim);
     public boolean updateOvertimByKey(Overtim overtim);
+    public boolean updateOvertimByOvertimId(Overtim overtim);
 }
