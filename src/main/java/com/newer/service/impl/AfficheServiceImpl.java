@@ -43,12 +43,8 @@ public class AfficheServiceImpl implements AfficheService {
         return this.afficheMapper.insert(affiche) > 0 ? true : false;
     }
     @Override
-    public List<Affiche> findAfficheByDate() {
-        List list=this.afficheMapper.findAfficheByDate();
-
-        if(list!=null)
-            return list;
-        return null;
+    public Affiche findAfficheByDate() {
+        return this.afficheMapper.findAfficheByDate();
     }
 }
 

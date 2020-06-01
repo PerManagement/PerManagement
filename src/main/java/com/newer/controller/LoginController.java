@@ -74,5 +74,4 @@ public class LoginController {
     public CommonsResult login(){
         return new CommonsResult(301,"未登录","login");
     }
-
 }

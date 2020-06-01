@@ -18,6 +18,6 @@ public interface AfficheService {
 
     public boolean saveAffiche(Affiche affiche);
 
-    public List<Affiche> findAfficheByDate();
+    public Affiche findAfficheByDate();
 }
 

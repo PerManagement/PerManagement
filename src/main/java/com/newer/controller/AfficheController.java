@@ -58,10 +58,10 @@ public class AfficheController {
 
     @GetMapping("findAfficheByDate")
     public CommonsResult findAfficheByDate(){
-        List list= this.afficheService.findAfficheByDate();
+        Affiche affiche= this.afficheService.findAfficheByDate();
 
-        if(list!=null)
-            return new CommonsResult(200, "登录通告显示", list);
+        if(affiche!=null)
+            return new CommonsResult(200, "登录通告显示", affiche);
         return new CommonsResult(500, "今日无通告", null);
     }
 
